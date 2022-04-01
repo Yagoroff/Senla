@@ -6,36 +6,42 @@ class CubeViewController: UIViewController {
     private lazy var cubeFirst: UIImageView = {
         let image = UIImageView(image: UIImage(named: "one"))
         image.translatesAutoresizingMaskIntoConstraints = false
+        image.alpha = 0
         return image
     } ()
     
     private lazy var cubeSecond: UIImageView = {
         let image = UIImageView(image: UIImage(named: "two"))
         image.translatesAutoresizingMaskIntoConstraints = false
+        image.alpha = 0
         return image
     } ()
     
     private lazy var cubeThird: UIImageView = {
         let image = UIImageView(image: UIImage(named: "three"))
         image.translatesAutoresizingMaskIntoConstraints = false
+        image.alpha = 0
         return image
     } ()
     
     private lazy var cubeFourth: UIImageView = {
         let image = UIImageView(image: UIImage(named: "four"))
         image.translatesAutoresizingMaskIntoConstraints = false
+        image.alpha = 0
         return image
     } ()
     
     private lazy var cubeFifth: UIImageView = {
         let image = UIImageView(image: UIImage(named: "five"))
         image.translatesAutoresizingMaskIntoConstraints = false
+        image.alpha = 0
         return image
     } ()
     
     private lazy var cubeSixth: UIImageView = {
         let image = UIImageView(image: UIImage(named: "six"))
         image.translatesAutoresizingMaskIntoConstraints = false
+        image.alpha = 0
         return image
     } ()
     
@@ -49,6 +55,7 @@ class CubeViewController: UIViewController {
         buttonForReturn.addTarget(self, action: #selector(buttonActionPlay(_:)), for: .touchUpInside)
         
         buttonForReturn.translatesAutoresizingMaskIntoConstraints = false
+        buttonForReturn.alpha = 0
         return buttonForReturn
     } ()
     
@@ -68,6 +75,15 @@ class CubeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        UIView.animate(withDuration: 1.2, delay: 0.6, options: .curveEaseInOut, animations: { [self] in
+            self.cubeFirst.alpha = 1
+            self.cubeSecond.alpha = 1
+            self.cubeThird.alpha = 1
+            self.cubeFourth.alpha = 1
+            self.cubeFifth.alpha = 1
+            self.cubeSixth.alpha = 1
+            self.playButton.alpha = 1
+        })
     }
     
     override func viewDidLayoutSubviews() {
@@ -121,50 +137,67 @@ extension CubeViewController {
         randomNumber = Int.random(in: 1...6)
         playButton.isHidden = true
         retryButton.isHidden = false
-        
         switch randomNumber {
         case 1:
-            cubeFirst.isHidden = false
-            cubeSecond.isHidden = true
-            cubeThird.isHidden = true
-            cubeFourth.isHidden = true
-            cubeFifth.isHidden = true
-            cubeSixth.isHidden = true
+            UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: { [self] in
+                self.cubeFirst.alpha = 1
+                self.cubeSecond.alpha = 0
+                self.cubeThird.alpha = 0
+                self.cubeFourth.alpha = 0
+                self.cubeFifth.alpha = 0
+                self.cubeSixth.alpha = 0
+            })
+            playButton.isHidden = true
         case 2:
-            cubeFirst.isHidden = true
-            cubeSecond.isHidden = false
-            cubeThird.isHidden = true
-            cubeFourth.isHidden = true
-            cubeFifth.isHidden = true
-            cubeSixth.isHidden = true
+            UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: { [self] in
+                self.cubeFirst.alpha = 0
+                self.cubeSecond.alpha = 1
+                self.cubeThird.alpha = 0
+                self.cubeFourth.alpha = 0
+                self.cubeFifth.alpha = 0
+                self.cubeSixth.alpha = 0
+            })
+            playButton.isHidden = true
         case 3:
-            cubeFirst.isHidden = true
-            cubeSecond.isHidden = true
-            cubeThird.isHidden = false
-            cubeFourth.isHidden = true
-            cubeFifth.isHidden = true
-            cubeSixth.isHidden = true
+            UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: { [self] in
+                self.cubeFirst.alpha = 0
+                self.cubeSecond.alpha = 0
+                self.cubeThird.alpha = 1
+                self.cubeFourth.alpha = 0
+                self.cubeFifth.alpha = 0
+                self.cubeSixth.alpha = 0
+            })
+            playButton.isHidden = true
         case 4:
-            cubeFirst.isHidden = true
-            cubeSecond.isHidden = true
-            cubeThird.isHidden = true
-            cubeFourth.isHidden = false
-            cubeFifth.isHidden = true
-            cubeSixth.isHidden = true
+            UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: { [self] in
+                self.cubeFirst.alpha = 0
+                self.cubeSecond.alpha = 0
+                self.cubeThird.alpha = 0
+                self.cubeFourth.alpha = 1
+                self.cubeFifth.alpha = 0
+                self.cubeSixth.alpha = 0
+            })
+            playButton.isHidden = true
         case 5:
-            cubeFirst.isHidden = true
-            cubeSecond.isHidden = true
-            cubeThird.isHidden = true
-            cubeFourth.isHidden = true
-            cubeFifth.isHidden = false
-            cubeSixth.isHidden = true
+            UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: { [self] in
+                self.cubeFirst.alpha = 0
+                self.cubeSecond.alpha = 0
+                self.cubeThird.alpha = 0
+                self.cubeFourth.alpha = 0
+                self.cubeFifth.alpha = 1
+                self.cubeSixth.alpha = 0
+            })
+            playButton.isHidden = true
         case 6:
-            cubeFirst.isHidden = true
-            cubeSecond.isHidden = true
-            cubeThird.isHidden = true
-            cubeFourth.isHidden = true
-            cubeFifth.isHidden = true
-            cubeSixth.isHidden = false
+            UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: { [self] in
+                self.cubeFirst.alpha = 0
+                self.cubeSecond.alpha = 0
+                self.cubeThird.alpha = 0
+                self.cubeFourth.alpha = 0
+                self.cubeFifth.alpha = 0
+                self.cubeSixth.alpha = 1
+            })
+            playButton.isHidden = true
         default:
             break
         }
@@ -173,11 +206,13 @@ extension CubeViewController {
     @objc func buttonActionRetry(_ sender: UIButton!) {
         playButton.isHidden = false
         retryButton.isHidden = true
-        cubeFirst.isHidden = false
-        cubeSecond.isHidden = false
-        cubeThird.isHidden = false
-        cubeFourth.isHidden = false
-        cubeFifth.isHidden = false
-        cubeSixth.isHidden = false
+        UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: { [self] in
+            self.cubeFirst.alpha = 1
+            self.cubeSecond.alpha = 1
+            self.cubeThird.alpha = 1
+            self.cubeFourth.alpha = 1
+            self.cubeFifth.alpha = 1
+            self.cubeSixth.alpha = 1
+        })
     }
 }

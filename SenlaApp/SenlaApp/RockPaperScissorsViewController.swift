@@ -39,6 +39,8 @@ class RockPaperScissorsViewController: UIViewController {
         
         buttonForReturn.translatesAutoresizingMaskIntoConstraints = false
         
+        buttonForReturn.alpha = 0
+        
         return buttonForReturn
     } ()
     
@@ -51,6 +53,8 @@ class RockPaperScissorsViewController: UIViewController {
         
         buttonForReturn.translatesAutoresizingMaskIntoConstraints = false
         
+        buttonForReturn.alpha = 0
+
         return buttonForReturn
     } ()
     
@@ -63,6 +67,8 @@ class RockPaperScissorsViewController: UIViewController {
         
         buttonForReturn.translatesAutoresizingMaskIntoConstraints = false
         
+        buttonForReturn.alpha = 0
+
         return buttonForReturn
     } ()
 
@@ -130,11 +136,17 @@ class RockPaperScissorsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        UIView.animate(withDuration: 1.2, delay: 0.6, options: .curveEaseInOut, animations: { [self] in
+            self.buttonRock.alpha = 1
+            self.buttonPaper.alpha = 1
+            self.buttonScissors.alpha = 1
+            self.buttonSettings.transform.tx = -100
+        })
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        buttonSettings.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50).isActive = true
+        buttonSettings.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 50).isActive = true
         buttonSettings.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
 
         
