@@ -13,7 +13,6 @@ class SettingsViewController: UIViewController {
         
         buttonForReturn.addTarget(self, action: #selector(buttonActionRussian(_:)), for: .touchUpInside)
         
-        buttonForReturn.translatesAutoresizingMaskIntoConstraints = false
         return buttonForReturn
     } ()
     
@@ -26,7 +25,6 @@ class SettingsViewController: UIViewController {
         
         buttonForReturn.addTarget(self, action: #selector(buttonActionEnglish(_:)), for: .touchUpInside)
         
-        buttonForReturn.translatesAutoresizingMaskIntoConstraints = false
         return buttonForReturn
     } ()
     
@@ -39,7 +37,6 @@ class SettingsViewController: UIViewController {
         
         buttonForReturn.addTarget(self, action: #selector(buttonActionWithDraw(_:)), for: .touchUpInside)
         
-        buttonForReturn.translatesAutoresizingMaskIntoConstraints = false
         return buttonForReturn
     } ()
     
@@ -52,7 +49,6 @@ class SettingsViewController: UIViewController {
         
         buttonForReturn.addTarget(self, action: #selector(buttonActionWithoutDraw(_:)), for: .touchUpInside)
         
-        buttonForReturn.translatesAutoresizingMaskIntoConstraints = false
         return buttonForReturn
     } ()
     
@@ -60,28 +56,7 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        buttonRussian.widthAnchor.constraint(equalToConstant: 300).isActive = true
-        buttonRussian.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        buttonRussian.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        buttonRussian.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
-        buttonEnglish.widthAnchor.constraint(equalToConstant: 300).isActive = true
-        buttonEnglish.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        buttonEnglish.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        buttonEnglish.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
-        
-        buttonWithDraw.widthAnchor.constraint(equalToConstant: 300).isActive = true
-        buttonWithDraw.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        buttonWithDraw.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        buttonWithDraw.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 250).isActive = true
-        buttonWithoutDraw.widthAnchor.constraint(equalToConstant: 300).isActive = true
-        buttonWithoutDraw.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        buttonWithoutDraw.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        buttonWithoutDraw.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 250).isActive = true
+        makeConstraints()
     }
 }
 
@@ -96,6 +71,35 @@ extension SettingsViewController {
         view.addSubview(buttonWithoutDraw)
         buttonEnglish.isHidden = true
         buttonWithoutDraw.isHidden = true
+    }
+    
+    func makeConstraints() {
+        buttonRussian.translatesAutoresizingMaskIntoConstraints = false
+        buttonEnglish.translatesAutoresizingMaskIntoConstraints = false
+        buttonWithDraw.translatesAutoresizingMaskIntoConstraints = false
+        buttonWithoutDraw.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            buttonRussian.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
+            buttonRussian.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.06),
+            buttonRussian.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonRussian.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
+            
+            buttonEnglish.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
+            buttonEnglish.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.06),
+            buttonEnglish.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonEnglish.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
+            
+            buttonWithDraw.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
+            buttonWithDraw.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.06),
+            buttonWithDraw.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonWithDraw.topAnchor.constraint(equalTo: buttonRussian.safeAreaLayoutGuide.bottomAnchor, constant: 30),
+            
+            buttonWithoutDraw.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
+            buttonWithoutDraw.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.06),
+            buttonWithoutDraw.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonWithoutDraw.topAnchor.constraint(equalTo: buttonRussian.safeAreaLayoutGuide.bottomAnchor, constant: 30)
+        ])
     }
     
     @objc func buttonActionRussian(_ sender: UIButton!) {

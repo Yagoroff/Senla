@@ -9,7 +9,6 @@ class RockPaperScissorsViewController: UIViewController {
     private lazy var textResult: UITextView = {
         let textView = UITextView()
         textView.font = UIFont.boldSystemFont(ofSize: 18)
-        textView.translatesAutoresizingMaskIntoConstraints = false
         textView.textAlignment = .center
         textView.isEditable = false
         textView.isScrollEnabled = false
@@ -26,7 +25,6 @@ class RockPaperScissorsViewController: UIViewController {
         
         buttonForReturn.addTarget(self, action: #selector(buttonActionRetry(_:)), for: .touchUpInside)
         
-        buttonForReturn.translatesAutoresizingMaskIntoConstraints = false
         return buttonForReturn
     } ()
     
@@ -34,13 +32,10 @@ class RockPaperScissorsViewController: UIViewController {
         let buttonForReturn = UIButton(type: .system)
         buttonForReturn.setImage(UIImage(named: "rock"), for: .normal)
         buttonForReturn.tintColor = .black
-        
-        buttonForReturn.addTarget(self, action: #selector(buttonActionRock(_:)), for: .touchUpInside)
-        
-        buttonForReturn.translatesAutoresizingMaskIntoConstraints = false
-        
         buttonForReturn.alpha = 0
-        
+
+        buttonForReturn.addTarget(self, action: #selector(buttonActionRock(_:)), for: .touchUpInside)
+                        
         return buttonForReturn
     } ()
     
@@ -48,13 +43,10 @@ class RockPaperScissorsViewController: UIViewController {
         let buttonForReturn = UIButton(type: .system)
         buttonForReturn.setImage(UIImage(named: "paper"), for: .normal)
         buttonForReturn.tintColor = .black
-        
-        buttonForReturn.addTarget(self, action: #selector(buttonActionPaper(_:)), for: .touchUpInside)
-        
-        buttonForReturn.translatesAutoresizingMaskIntoConstraints = false
-        
         buttonForReturn.alpha = 0
 
+        buttonForReturn.addTarget(self, action: #selector(buttonActionPaper(_:)), for: .touchUpInside)
+                
         return buttonForReturn
     } ()
     
@@ -62,146 +54,64 @@ class RockPaperScissorsViewController: UIViewController {
         let buttonForReturn = UIButton(type: .system)
         buttonForReturn.setImage(UIImage(named: "scissors"), for: .normal)
         buttonForReturn.tintColor = .black
-
-        buttonForReturn.addTarget(self, action: #selector(buttonActionScissors(_:)), for: .touchUpInside)
-        
-        buttonForReturn.translatesAutoresizingMaskIntoConstraints = false
-        
         buttonForReturn.alpha = 0
 
+        buttonForReturn.addTarget(self, action: #selector(buttonActionScissors(_:)), for: .touchUpInside)
+                
         return buttonForReturn
     } ()
 
     private lazy var imageRockUsers: UIImageView = {
         let imageForReturn = UIImageView(image: UIImage(named: "rock"))
-        
-        imageForReturn.translatesAutoresizingMaskIntoConstraints = false
-        
         return imageForReturn
     } ()
     
     private lazy var imagePaperUsers: UIImageView = {
         let imageForReturn = UIImageView(image: UIImage(named: "paper"))
-        
-        imageForReturn.translatesAutoresizingMaskIntoConstraints = false
-        
         return imageForReturn
     } ()
     
     private lazy var imageScissorsUsers: UIImageView = {
         let imageForReturn = UIImageView(image: UIImage(named: "scissors"))
-        
-        imageForReturn.translatesAutoresizingMaskIntoConstraints = false
-        
         return imageForReturn
     } ()
     
     private lazy var imageRockRandom: UIImageView = {
         let imageForReturn = UIImageView(image: UIImage(named: "rock"))
-        
-        imageForReturn.translatesAutoresizingMaskIntoConstraints = false
-        
         return imageForReturn
     } ()
     
     private lazy var imagePaperRandom: UIImageView = {
         let imageForReturn = UIImageView(image: UIImage(named: "paper"))
-        
-        imageForReturn.translatesAutoresizingMaskIntoConstraints = false
-        
         return imageForReturn
     } ()
     
     private lazy var imageScissorsRandom: UIImageView = {
         let imageForReturn = UIImageView(image: UIImage(named: "scissors"))
-        
-        imageForReturn.translatesAutoresizingMaskIntoConstraints = false
-        
         return imageForReturn
     } ()
     
     private lazy var buttonSettings: UIButton = {
         let button = UIButton(type: .system)
-
         button.setImage(UIImage(systemName: "gearshape", withConfiguration: UIImage.SymbolConfiguration(pointSize: 26)), for: .normal)
         button.imageView?.tintColor = .black
         button.tintColor = .black
 
         button.addTarget(self, action: #selector(buttonActionSettings(_:)), for: .touchUpInside)
         
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     } ()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        makeConstraints()
         UIView.animate(withDuration: 1.2, delay: 0.6, options: .curveEaseInOut, animations: { [self] in
             self.buttonRock.alpha = 1
             self.buttonPaper.alpha = 1
             self.buttonScissors.alpha = 1
             self.buttonSettings.transform.tx = -100
         })
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        buttonSettings.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 50).isActive = true
-        buttonSettings.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-
-        
-        buttonRock.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 70).isActive = true
-        buttonRock.topAnchor.constraint(equalTo: view.topAnchor, constant: 700).isActive = true
-        buttonRock.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        buttonRock.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        buttonPaper.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 180).isActive = true
-        buttonPaper.topAnchor.constraint(equalTo: view.topAnchor, constant: 700).isActive = true
-        buttonPaper.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        buttonPaper.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        buttonScissors.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 290).isActive = true
-        buttonScissors.topAnchor.constraint(equalTo: view.topAnchor, constant: 700).isActive = true
-        buttonScissors.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        buttonScissors.heightAnchor.constraint(equalToConstant: 50).isActive = true
-
-        textResult.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        textResult.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        
-        buttonRetry.widthAnchor.constraint(equalToConstant: 140).isActive = true
-        buttonRetry.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        buttonRetry.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        buttonRetry.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
-        
-        imageRockRandom.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 180).isActive = true
-        imageRockRandom.topAnchor.constraint(equalTo: view.topAnchor, constant: 200).isActive = true
-        imageRockRandom.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        imageRockRandom.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        imagePaperRandom.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 180).isActive = true
-        imagePaperRandom.topAnchor.constraint(equalTo: view.topAnchor, constant: 200).isActive = true
-        imagePaperRandom.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        imagePaperRandom.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        imageScissorsRandom.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 180).isActive = true
-        imageScissorsRandom.topAnchor.constraint(equalTo: view.topAnchor, constant: 200).isActive = true
-        imageScissorsRandom.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        imageScissorsRandom.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        imageRockUsers.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 180).isActive = true
-        imageRockUsers.topAnchor.constraint(equalTo: view.topAnchor, constant: 600).isActive = true
-        imageRockUsers.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        imageRockUsers.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        imagePaperUsers.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 180).isActive = true
-        imagePaperUsers.topAnchor.constraint(equalTo: view.topAnchor, constant: 600).isActive = true
-        imagePaperUsers.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        imagePaperUsers.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        imageScissorsUsers.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 180).isActive = true
-        imageScissorsUsers.topAnchor.constraint(equalTo: view.topAnchor, constant: 600).isActive = true
-        imageScissorsUsers.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        imageScissorsUsers.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
 }
 
@@ -228,6 +138,81 @@ private extension RockPaperScissorsViewController {
         imagePaperUsers.isHidden = true
         imageScissorsUsers.isHidden = true
     }
+    
+    func makeConstraints() {
+        buttonSettings.translatesAutoresizingMaskIntoConstraints = false
+        buttonRock.translatesAutoresizingMaskIntoConstraints = false
+        buttonPaper.translatesAutoresizingMaskIntoConstraints = false
+        buttonScissors.translatesAutoresizingMaskIntoConstraints = false
+        textResult.translatesAutoresizingMaskIntoConstraints = false
+        buttonRetry.translatesAutoresizingMaskIntoConstraints = false
+        imageRockRandom.translatesAutoresizingMaskIntoConstraints = false
+        imagePaperRandom.translatesAutoresizingMaskIntoConstraints = false
+        imageScissorsRandom.translatesAutoresizingMaskIntoConstraints = false
+        imageScissorsUsers.translatesAutoresizingMaskIntoConstraints = false
+        imagePaperUsers.translatesAutoresizingMaskIntoConstraints = false
+        imageRockUsers.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            buttonSettings.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 50),
+            buttonSettings.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+
+            buttonPaper.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonPaper.topAnchor.constraint(equalTo: view.topAnchor, constant: 700),
+            buttonPaper.widthAnchor.constraint(equalToConstant: 50),
+            buttonPaper.heightAnchor.constraint(equalToConstant: 50),
+            
+            buttonRock.trailingAnchor.constraint(equalTo: buttonPaper.leadingAnchor, constant: -60),
+            buttonRock.topAnchor.constraint(equalTo: view.topAnchor, constant: 700),
+            buttonRock.widthAnchor.constraint(equalToConstant: 50),
+            buttonRock.heightAnchor.constraint(equalToConstant: 50),
+            
+            buttonScissors.leadingAnchor.constraint(equalTo: buttonPaper.trailingAnchor, constant: 60),
+            buttonScissors.topAnchor.constraint(equalTo: view.topAnchor, constant: 700),
+            buttonScissors.widthAnchor.constraint(equalToConstant: 50),
+            buttonScissors.heightAnchor.constraint(equalToConstant: 50),
+
+            textResult.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            textResult.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            
+            buttonRetry.widthAnchor.constraint(equalToConstant: 140),
+            buttonRetry.heightAnchor.constraint(equalToConstant: 50),
+            buttonRetry.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonRetry.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
+            
+            imageRockRandom.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            imageRockRandom.bottomAnchor.constraint(equalTo: textResult.topAnchor, constant: -140),
+            imageRockRandom.widthAnchor.constraint(equalToConstant: 50),
+            imageRockRandom.heightAnchor.constraint(equalToConstant: 50),
+            
+            imagePaperRandom.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            imagePaperRandom.bottomAnchor.constraint(equalTo: textResult.topAnchor, constant: -140),
+            imagePaperRandom.widthAnchor.constraint(equalToConstant: 50),
+            imagePaperRandom.heightAnchor.constraint(equalToConstant: 50),
+            
+            imageScissorsRandom.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            imageScissorsRandom.bottomAnchor.constraint(equalTo: textResult.topAnchor, constant: -140),
+            imageScissorsRandom.widthAnchor.constraint(equalToConstant: 50),
+            imageScissorsRandom.heightAnchor.constraint(equalToConstant: 50),
+            
+            imageRockUsers.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            imageRockUsers.topAnchor.constraint(equalTo: textResult.bottomAnchor, constant: 140),
+            imageRockUsers.widthAnchor.constraint(equalToConstant: 50),
+            imageRockUsers.heightAnchor.constraint(equalToConstant: 50),
+            
+            imagePaperUsers.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            imagePaperUsers.topAnchor.constraint(equalTo: textResult.bottomAnchor, constant: 140),
+            imagePaperUsers.widthAnchor.constraint(equalToConstant: 50),
+            imagePaperUsers.heightAnchor.constraint(equalToConstant: 50),
+            
+            imageScissorsUsers.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            imageScissorsUsers.topAnchor.constraint(equalTo: textResult.bottomAnchor, constant: 140),
+            imageScissorsUsers.widthAnchor.constraint(equalToConstant: 50),
+            imageScissorsUsers.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
+    }
+
     
     func switchLanguage() -> Array<String> {
         guard settingViewController.currentLanguage == "english" else {
