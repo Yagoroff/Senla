@@ -3,6 +3,16 @@ import UIKit
 class CubeViewController: UIViewController {
     private lazy var randomNumber: Int = Int.random(in: 1...6)
     
+    private lazy var stackViewFirstLine: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [cubeFirst, cubeSecond, cubeThird])
+        return stack
+    } ()
+    
+    private lazy var stackViewSecondLine: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [cubeFourth, cubeFifth, cubeSixth])
+        return stack
+    } ()
+    
     private lazy var cubeFirst: UIImageView = {
         let image = UIImageView(image: UIImage(named: "one"))
         image.alpha = 0
@@ -83,56 +93,44 @@ class CubeViewController: UIViewController {
 extension CubeViewController {
     func setupView() {
         view.backgroundColor = .white
-        view.addSubview(cubeFirst)
-        view.addSubview(cubeSecond)
-        view.addSubview(cubeThird)
-        view.addSubview(cubeFourth)
-        view.addSubview(cubeFifth)
-        view.addSubview(cubeSixth)
+        view.addSubview(stackViewFirstLine)
+        view.addSubview(stackViewSecondLine)
         view.addSubview(playButton)
         view.addSubview(retryButton)
         retryButton.isHidden = true
     }
     
     func makeConstraints() {
-        cubeFirst.translatesAutoresizingMaskIntoConstraints = false
-        cubeSecond.translatesAutoresizingMaskIntoConstraints = false
-        cubeThird.translatesAutoresizingMaskIntoConstraints = false
-        cubeFourth.translatesAutoresizingMaskIntoConstraints = false
-        cubeFifth.translatesAutoresizingMaskIntoConstraints = false
-        cubeSixth.translatesAutoresizingMaskIntoConstraints = false
+        stackViewFirstLine.translatesAutoresizingMaskIntoConstraints = false
+        stackViewSecondLine.translatesAutoresizingMaskIntoConstraints = false
         playButton.translatesAutoresizingMaskIntoConstraints = false
         retryButton.translatesAutoresizingMaskIntoConstraints = false
         
+        stackViewFirstLine.axis = .horizontal
+        stackViewFirstLine.spacing = 20
+        stackViewFirstLine.distribution = .fillEqually
+        
+        stackViewSecondLine.axis = .horizontal
+        stackViewSecondLine.spacing = 20
+        stackViewSecondLine.distribution = .fillEqually
+        
         NSLayoutConstraint.activate([
-            playButton.widthAnchor.constraint(equalToConstant: 140),
-            playButton.heightAnchor.constraint(equalToConstant: 50),
+            playButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.3),
+            playButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05),
             playButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             playButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             
-            retryButton.widthAnchor.constraint(equalToConstant: 140),
-            retryButton.heightAnchor.constraint(equalToConstant: 50),
+            retryButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.3),
+            retryButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05),
             retryButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             retryButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             
             
-            cubeFirst.topAnchor.constraint(equalTo: view.topAnchor, constant: 200),
-            cubeFirst.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 35),
+            stackViewFirstLine.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            stackViewFirstLine.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -150),
             
-            cubeSecond.topAnchor.constraint(equalTo: view.topAnchor, constant: 200),
-            cubeSecond.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 155),
-            
-            cubeThird.topAnchor.constraint(equalTo: view.topAnchor, constant: 200),
-            cubeThird.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 275),
-            
-            cubeFourth.topAnchor.constraint(equalTo: view.topAnchor, constant: 320),
-            cubeFourth.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 35),
-        
-            cubeFifth.topAnchor.constraint(equalTo: view.topAnchor, constant: 320),
-            cubeFifth.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 155),
-            
-            cubeSixth.topAnchor.constraint(equalTo: view.topAnchor, constant: 320),
-            cubeSixth.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 275)
+            stackViewSecondLine.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            stackViewSecondLine.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -30)
         ])
     }
     

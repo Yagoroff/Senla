@@ -16,6 +16,13 @@ class RockPaperScissorsViewController: UIViewController {
         return textView
     } ()
     
+    lazy var stackViewItems: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [buttonRock, buttonPaper, buttonScissors])
+        stack.alpha = 0
+
+        return stack
+    } ()
+    
     private lazy var buttonRetry: UIButton = {
         let buttonForReturn = UIButton(type: .system)
         buttonForReturn.setTitle("RETRY", for: .normal)
@@ -32,9 +39,8 @@ class RockPaperScissorsViewController: UIViewController {
         let buttonForReturn = UIButton(type: .system)
         buttonForReturn.setImage(UIImage(named: "rock"), for: .normal)
         buttonForReturn.tintColor = .black
-        buttonForReturn.alpha = 0
 
-        buttonForReturn.addTarget(self, action: #selector(buttonActionRock(_:)), for: .touchUpInside)
+        buttonForReturn.addTarget(self, action: #selector(buttonActionPlay(_:)), for: .touchUpInside)
                         
         return buttonForReturn
     } ()
@@ -43,9 +49,8 @@ class RockPaperScissorsViewController: UIViewController {
         let buttonForReturn = UIButton(type: .system)
         buttonForReturn.setImage(UIImage(named: "paper"), for: .normal)
         buttonForReturn.tintColor = .black
-        buttonForReturn.alpha = 0
 
-        buttonForReturn.addTarget(self, action: #selector(buttonActionPaper(_:)), for: .touchUpInside)
+        buttonForReturn.addTarget(self, action: #selector(buttonActionPlay(_:)), for: .touchUpInside)
                 
         return buttonForReturn
     } ()
@@ -54,9 +59,8 @@ class RockPaperScissorsViewController: UIViewController {
         let buttonForReturn = UIButton(type: .system)
         buttonForReturn.setImage(UIImage(named: "scissors"), for: .normal)
         buttonForReturn.tintColor = .black
-        buttonForReturn.alpha = 0
 
-        buttonForReturn.addTarget(self, action: #selector(buttonActionScissors(_:)), for: .touchUpInside)
+        buttonForReturn.addTarget(self, action: #selector(buttonActionPlay(_:)), for: .touchUpInside)
                 
         return buttonForReturn
     } ()
@@ -107,10 +111,8 @@ class RockPaperScissorsViewController: UIViewController {
         setupView()
         makeConstraints()
         UIView.animate(withDuration: 1.2, delay: 0.6, options: .curveEaseInOut, animations: { [self] in
-            self.buttonRock.alpha = 1
-            self.buttonPaper.alpha = 1
-            self.buttonScissors.alpha = 1
-            self.buttonSettings.transform.tx = -100
+            self.stackViewItems.alpha = 1
+            self.buttonSettings.transform.tx = -70
         })
     }
 }
@@ -118,10 +120,8 @@ class RockPaperScissorsViewController: UIViewController {
 private extension RockPaperScissorsViewController {
     func setupView() {
         view.backgroundColor = .white
+        view.addSubview(stackViewItems)
         view.addSubview(buttonSettings)
-        view.addSubview(buttonRock)
-        view.addSubview(buttonPaper)
-        view.addSubview(buttonScissors)
         view.addSubview(textResult)
         view.addSubview(buttonRetry)
         view.addSubview(imageRockRandom)
@@ -141,9 +141,7 @@ private extension RockPaperScissorsViewController {
     
     func makeConstraints() {
         buttonSettings.translatesAutoresizingMaskIntoConstraints = false
-        buttonRock.translatesAutoresizingMaskIntoConstraints = false
-        buttonPaper.translatesAutoresizingMaskIntoConstraints = false
-        buttonScissors.translatesAutoresizingMaskIntoConstraints = false
+        stackViewItems.translatesAutoresizingMaskIntoConstraints = false
         textResult.translatesAutoresizingMaskIntoConstraints = false
         buttonRetry.translatesAutoresizingMaskIntoConstraints = false
         imageRockRandom.translatesAutoresizingMaskIntoConstraints = false
@@ -153,32 +151,25 @@ private extension RockPaperScissorsViewController {
         imagePaperUsers.translatesAutoresizingMaskIntoConstraints = false
         imageRockUsers.translatesAutoresizingMaskIntoConstraints = false
         
+        stackViewItems.axis = .horizontal
+        stackViewItems.spacing = 50
+        stackViewItems.distribution = .fillEqually
+        
         NSLayoutConstraint.activate([
             buttonSettings.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 50),
             buttonSettings.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
 
-            buttonPaper.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            buttonPaper.topAnchor.constraint(equalTo: view.topAnchor, constant: 700),
-            buttonPaper.widthAnchor.constraint(equalToConstant: 50),
-            buttonPaper.heightAnchor.constraint(equalToConstant: 50),
+            stackViewItems.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            stackViewItems.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant:  -150),
             
-            buttonRock.trailingAnchor.constraint(equalTo: buttonPaper.leadingAnchor, constant: -60),
-            buttonRock.topAnchor.constraint(equalTo: view.topAnchor, constant: 700),
-            buttonRock.widthAnchor.constraint(equalToConstant: 50),
-            buttonRock.heightAnchor.constraint(equalToConstant: 50),
-            
-            buttonScissors.leadingAnchor.constraint(equalTo: buttonPaper.trailingAnchor, constant: 60),
-            buttonScissors.topAnchor.constraint(equalTo: view.topAnchor, constant: 700),
-            buttonScissors.widthAnchor.constraint(equalToConstant: 50),
-            buttonScissors.heightAnchor.constraint(equalToConstant: 50),
-
             textResult.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             textResult.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+
             
-            buttonRetry.widthAnchor.constraint(equalToConstant: 140),
-            buttonRetry.heightAnchor.constraint(equalToConstant: 50),
+            buttonRetry.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.3),
+            buttonRetry.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05),
             buttonRetry.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            buttonRetry.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
+            buttonRetry.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             
             imageRockRandom.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             imageRockRandom.bottomAnchor.constraint(equalTo: textResult.topAnchor, constant: -140),
@@ -227,12 +218,10 @@ private extension RockPaperScissorsViewController {
     @objc private func buttonActionSettings(_ sender: Any) {
         navigationController?.pushViewController(settingViewController, animated: true)
     }
-    
+        
     @objc private func buttonActionRetry(_ sender: UIButton!) {
         textResult.text = ""
-        buttonRock.isHidden = false
-        buttonPaper.isHidden = false
-        buttonScissors.isHidden = false
+        stackViewItems.isHidden = false
         buttonRetry.isHidden = true
         imageRockRandom.isHidden = true
         imagePaperRandom.isHidden = true
@@ -242,113 +231,101 @@ private extension RockPaperScissorsViewController {
         imageRockUsers.isHidden = true
     }
     
-    @objc private func buttonActionRock(_ sender: UIButton!) {
-        let language = switchLanguage()
-
-        if settingViewController.statusDrawMode {
-            randChoice = Int.random(in: 0...2)
-        } else {
-            randChoice = Int.random(in: 1...2)
-        }
-        
-        switch randChoice {
-        case 0:
-            textResult.text = language[0]
-            imageRockRandom.isHidden = false
-            imagePaperRandom.isHidden = true
-            imageScissorsRandom.isHidden = true
-        case 1:
-            textResult.text = language[2]
-            imageRockRandom.isHidden = true
-            imagePaperRandom.isHidden = false
-            imageScissorsRandom.isHidden = true
-        case 2:
-            textResult.text = language[1]
-            imageRockRandom.isHidden = true
-            imagePaperRandom.isHidden = true
-            imageScissorsRandom.isHidden = false
-        default:
-            break
-        }
-
-        imageRockUsers.isHidden = false
-        imagePaperUsers.isHidden = true
-        imageScissorsUsers.isHidden = true
-        buttonRock.isHidden = true
-        buttonPaper.isHidden = true
-        buttonScissors.isHidden = true
-        buttonRetry.isHidden = false
-    }
-    
-    @objc private func buttonActionPaper(_ sender: UIButton!) {
-        let language = switchLanguage()
-        let arrayForModeWithoutDraw: Array<Int> = [0, 2]
-        
-        if settingViewController.statusDrawMode {
-            randChoice = Int.random(in: 0...2)
-        } else {
-            randChoice = arrayForModeWithoutDraw.randomElement()!
-        }
-
-        if randChoice == 1 {
-            textResult.text = language[0]
-            imageRockRandom.isHidden = true
-            imagePaperRandom.isHidden = false
-            imageScissorsRandom.isHidden = true
-        } else if randChoice == 2 {
-            textResult.text = language[2]
-            imageRockRandom.isHidden = true
-            imagePaperRandom.isHidden = true
-            imageScissorsRandom.isHidden = false
-        } else if randChoice == 0 {
-            textResult.text = language[1]
-            imageRockRandom.isHidden = false
-            imagePaperRandom.isHidden = true
-            imageScissorsRandom.isHidden = true
-        }
-        
-        imagePaperUsers.isHidden = false
-        imageRockUsers.isHidden = true
-        imageScissorsUsers.isHidden = true
-        buttonRock.isHidden = true
-        buttonPaper.isHidden = true
-        buttonScissors.isHidden = true
-        buttonRetry.isHidden = false
-    }
-    
-    @objc private func buttonActionScissors(_ sender: UIButton!) {
+    @objc private func buttonActionPlay(_ sender: UIButton!) {
         let language = switchLanguage()
         
-        if settingViewController.statusDrawMode {
-            randChoice = Int.random(in: 0...2)
-        } else {
-            randChoice = Int.random(in: 0...1)
-        }
+        if sender == buttonRock {
+            if settingViewController.statusDrawMode {
+                randChoice = Int.random(in: 0...2)
+            } else {
+                randChoice = Int.random(in: 1...2)
+            }
+            
+            switch randChoice {
+            case 0:
+                textResult.text = language[0]
+                imageRockRandom.isHidden = false
+                imagePaperRandom.isHidden = true
+                imageScissorsRandom.isHidden = true
+            case 1:
+                textResult.text = language[2]
+                imageRockRandom.isHidden = true
+                imagePaperRandom.isHidden = false
+                imageScissorsRandom.isHidden = true
+            case 2:
+                textResult.text = language[1]
+                imageRockRandom.isHidden = true
+                imagePaperRandom.isHidden = true
+                imageScissorsRandom.isHidden = false
+            default:
+                break
+            }
 
-        if randChoice == 2 {
-            textResult.text = language[0]
-            imageRockRandom.isHidden = true
-            imagePaperRandom.isHidden = true
-            imageScissorsRandom.isHidden = false
-        } else if randChoice == 0 {
-            textResult.text = language[2]
-            imageRockRandom.isHidden = false
-            imagePaperRandom.isHidden = true
-            imageScissorsRandom.isHidden = true
-        } else if randChoice == 1 {
-            textResult.text = language[1]
-            imageRockRandom.isHidden = true
-            imagePaperRandom.isHidden = false
-            imageScissorsRandom.isHidden = true
+            imageRockUsers.isHidden = false
+            imagePaperUsers.isHidden = true
+            imageScissorsUsers.isHidden = true
+            stackViewItems.isHidden = true
+            buttonRetry.isHidden = false
+        } else if sender == buttonPaper {
+            let arrayForModeWithoutDraw: Array<Int> = [0, 2]
+            
+            if settingViewController.statusDrawMode {
+                randChoice = Int.random(in: 0...2)
+            } else {
+                randChoice = arrayForModeWithoutDraw.randomElement()!
+            }
+
+            if randChoice == 1 {
+                textResult.text = language[0]
+                imageRockRandom.isHidden = true
+                imagePaperRandom.isHidden = false
+                imageScissorsRandom.isHidden = true
+            } else if randChoice == 2 {
+                textResult.text = language[2]
+                imageRockRandom.isHidden = true
+                imagePaperRandom.isHidden = true
+                imageScissorsRandom.isHidden = false
+            } else if randChoice == 0 {
+                textResult.text = language[1]
+                imageRockRandom.isHidden = false
+                imagePaperRandom.isHidden = true
+                imageScissorsRandom.isHidden = true
+            }
+            
+            imagePaperUsers.isHidden = false
+            imageRockUsers.isHidden = true
+            imageScissorsUsers.isHidden = true
+            stackViewItems.isHidden = true
+            buttonRetry.isHidden = false
+        } else if sender == buttonScissors {
+            if settingViewController.statusDrawMode {
+                randChoice = Int.random(in: 0...2)
+            } else {
+                randChoice = Int.random(in: 0...1)
+            }
+
+            if randChoice == 2 {
+                textResult.text = language[0]
+                imageRockRandom.isHidden = true
+                imagePaperRandom.isHidden = true
+                imageScissorsRandom.isHidden = false
+            } else if randChoice == 0 {
+                textResult.text = language[2]
+                imageRockRandom.isHidden = false
+                imagePaperRandom.isHidden = true
+                imageScissorsRandom.isHidden = true
+            } else if randChoice == 1 {
+                textResult.text = language[1]
+                imageRockRandom.isHidden = true
+                imagePaperRandom.isHidden = false
+                imageScissorsRandom.isHidden = true
+            }
+            
+            imageScissorsUsers.isHidden = false
+            imageRockUsers.isHidden = true
+            imagePaperUsers.isHidden = true
+            stackViewItems.isHidden = true
+            buttonRetry.isHidden = false
         }
-        
-        imageScissorsUsers.isHidden = false
-        imageRockUsers.isHidden = true
-        imagePaperUsers.isHidden = true
-        buttonRock.isHidden = true
-        buttonPaper.isHidden = true
-        buttonScissors.isHidden = true
-        buttonRetry.isHidden = false
     }
 }
-

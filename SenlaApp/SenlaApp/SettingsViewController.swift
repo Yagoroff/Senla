@@ -2,6 +2,7 @@ import UIKit
 
 class SettingsViewController: UIViewController {
     public var currentLanguage: String = "english"
+    
     public var statusDrawMode: Bool = true
     
     lazy var buttonRussian: UIButton = {

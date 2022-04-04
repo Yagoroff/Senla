@@ -18,7 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navigationController = UINavigationController(rootViewController: rockPaperScissorsViewController)
         navigationController.tabBarItem = UITabBarItem(title: "RockPaperScissors", image: UIImage(systemName: "scissors"), selectedImage: nil)
         
-        tabBarController.viewControllers = [navigationController, cubeViewController]
+        let ticTacToeViewController = TicTacToeViewController()
+        ticTacToeViewController.tabBarItem = UITabBarItem(title: "TicTacToe", image: UIImage(systemName: "multiply.circle"), selectedImage: nil)
+        
+        tabBarController.viewControllers = [navigationController, cubeViewController, ticTacToeViewController]
         
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
