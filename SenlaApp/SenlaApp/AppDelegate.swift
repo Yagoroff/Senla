@@ -21,7 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let ticTacToeViewController = TicTacToeViewController()
         ticTacToeViewController.tabBarItem = UITabBarItem(title: "TicTacToe", image: UIImage(systemName: "multiply.circle"), selectedImage: nil)
         
-        tabBarController.viewControllers = [navigationController, cubeViewController, ticTacToeViewController]
+        let calculatorViewControleer = CalculatorViewController()
+        calculatorViewControleer.tabBarItem = UITabBarItem(title: "Calculator", image: UIImage(systemName: "x.squareroot"), selectedImage: nil)
+        
+        tabBarController.viewControllers = [navigationController, cubeViewController, ticTacToeViewController, calculatorViewControleer]
         
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
