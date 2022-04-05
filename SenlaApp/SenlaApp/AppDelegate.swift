@@ -23,9 +23,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let calculatorViewControleer = CalculatorViewController()
         calculatorViewControleer.tabBarItem = UITabBarItem(title: "Calculator", image: UIImage(systemName: "x.squareroot"), selectedImage: nil)
+                
+        tabBarController.tabBar.barTintColor = .gray
+        tabBarController.tabBar.tintColor = .darkGray
         
         tabBarController.viewControllers = [navigationController, cubeViewController, ticTacToeViewController, calculatorViewControleer]
-        
+                
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
     

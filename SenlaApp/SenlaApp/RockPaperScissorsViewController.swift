@@ -18,7 +18,7 @@ class RockPaperScissorsViewController: UIViewController {
     
     lazy var stackViewItems: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [buttonRock, buttonPaper, buttonScissors])
-        stack.alpha = 0
+        stack.layer.opacity = 0
 
         return stack
     } ()
@@ -111,7 +111,7 @@ class RockPaperScissorsViewController: UIViewController {
         setupView()
         makeConstraints()
         UIView.animate(withDuration: 1.2, delay: 0.6, options: .curveEaseInOut, animations: { [self] in
-            self.stackViewItems.alpha = 1
+            self.stackViewItems.layer.opacity = 1
             self.buttonSettings.transform.tx = -70
         })
     }
@@ -266,6 +266,7 @@ private extension RockPaperScissorsViewController {
             imageScissorsUsers.isHidden = true
             stackViewItems.isHidden = true
             buttonRetry.isHidden = false
+            
         } else if sender == buttonPaper {
             let arrayForModeWithoutDraw: Array<Int> = [0, 2]
             
@@ -274,22 +275,25 @@ private extension RockPaperScissorsViewController {
             } else {
                 randChoice = arrayForModeWithoutDraw.randomElement()!
             }
-
-            if randChoice == 1 {
+            
+            switch randChoice {
+            case 1:
                 textResult.text = language[0]
                 imageRockRandom.isHidden = true
                 imagePaperRandom.isHidden = false
                 imageScissorsRandom.isHidden = true
-            } else if randChoice == 2 {
+            case 2:
                 textResult.text = language[2]
                 imageRockRandom.isHidden = true
                 imagePaperRandom.isHidden = true
                 imageScissorsRandom.isHidden = false
-            } else if randChoice == 0 {
+            case 0 :
                 textResult.text = language[1]
                 imageRockRandom.isHidden = false
                 imagePaperRandom.isHidden = true
                 imageScissorsRandom.isHidden = true
+            default:
+                break
             }
             
             imagePaperUsers.isHidden = false
@@ -297,6 +301,7 @@ private extension RockPaperScissorsViewController {
             imageScissorsUsers.isHidden = true
             stackViewItems.isHidden = true
             buttonRetry.isHidden = false
+            
         } else if sender == buttonScissors {
             if settingViewController.statusDrawMode {
                 randChoice = Int.random(in: 0...2)
@@ -304,21 +309,24 @@ private extension RockPaperScissorsViewController {
                 randChoice = Int.random(in: 0...1)
             }
 
-            if randChoice == 2 {
+            switch randChoice {
+            case 2:
                 textResult.text = language[0]
                 imageRockRandom.isHidden = true
                 imagePaperRandom.isHidden = true
                 imageScissorsRandom.isHidden = false
-            } else if randChoice == 0 {
+            case 0:
                 textResult.text = language[2]
                 imageRockRandom.isHidden = false
                 imagePaperRandom.isHidden = true
                 imageScissorsRandom.isHidden = true
-            } else if randChoice == 1 {
+            case 1:
                 textResult.text = language[1]
                 imageRockRandom.isHidden = true
                 imagePaperRandom.isHidden = false
                 imageScissorsRandom.isHidden = true
+            default:
+                break
             }
             
             imageScissorsUsers.isHidden = false

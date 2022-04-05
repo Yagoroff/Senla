@@ -4,13 +4,25 @@ class TicTacToeViewController: UIViewController {
         
     lazy var arrayForCoordinates: [UIButton] = [buttonWithCoordsOneOne, buttonWithCoordsOneTwo, buttonWithCoordsOneThree, buttonWithCoordsTwoOne, buttonWithCoordsTwoTwo, buttonWithCoordsTwoThree, buttonWithCoordsThreeOne, buttonWithCoordsThreeTwo, buttonWithCoordsThreeThree]
     
-    var matrix = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    lazy var titleGame: UITextView = {
+        let textView = UITextView()
+        textView.font = UIFont.boldSystemFont(ofSize: 60)
+        textView.text = "TicTacToe"
+        textView.textColor = .black
+        textView.textAlignment = .center
+        textView.isEditable = false
+        textView.isScrollEnabled = false
+        textView.layer.opacity = 0
+        return textView
+    } ()
     
-    var winningVersions = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
+    lazy var matrix = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     
-    var playersFields: Array<Int> = []
+    lazy var winningVersions = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
+    
+    lazy var playersFields: Array<Int> = []
 
-    var computerFields: Array<Int> = []
+    lazy var computerFields: Array<Int> = []
     
     lazy var textResult: UITextView = {
         let textView = UITextView()
@@ -36,16 +48,19 @@ class TicTacToeViewController: UIViewController {
     
     lazy var stackViewFirstLine: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [buttonWithCoordsOneOne, buttonWithCoordsOneTwo, buttonWithCoordsOneThree])
+        stack.layer.opacity = 0
         return stack
     } ()
     
     lazy var stackViewSecondLine: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [buttonWithCoordsTwoOne, buttonWithCoordsTwoTwo, buttonWithCoordsTwoThree])
+        stack.layer.opacity = 0
         return stack
     } ()
     
     lazy var stackViewThirdLine: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [buttonWithCoordsThreeOne, buttonWithCoordsThreeTwo, buttonWithCoordsThreeThree])
+        stack.layer.opacity = 0
         return stack
     } ()
     
@@ -134,6 +149,7 @@ class TicTacToeViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         makeConstraints()
+        animation()
     }
 }
 
@@ -142,6 +158,7 @@ extension TicTacToeViewController {
     func setupView() {
         title = "TicTacToe"
         view.backgroundColor = .white
+        view.addSubview(titleGame)
         view.addSubview(stackViewFirstLine)
         view.addSubview(stackViewSecondLine)
         view.addSubview(stackViewThirdLine)
@@ -152,6 +169,8 @@ extension TicTacToeViewController {
     }
     
     func makeConstraints() {
+        titleGame.translatesAutoresizingMaskIntoConstraints = false
+        
         stackViewFirstLine.translatesAutoresizingMaskIntoConstraints = false
         stackViewFirstLine.axis = .horizontal
         stackViewFirstLine.distribution = .fillEqually
@@ -168,31 +187,22 @@ extension TicTacToeViewController {
         buttonRetry.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            buttonWithCoordsOneOne.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.25),
-            buttonWithCoordsOneTwo.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.25),
-            buttonWithCoordsOneThree.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.25),
-            buttonWithCoordsTwoOne.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.25),
-            buttonWithCoordsTwoTwo.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.25),
-            buttonWithCoordsTwoThree.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.25),
-            buttonWithCoordsThreeOne.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.25),
-            buttonWithCoordsThreeTwo.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.25),
-            buttonWithCoordsThreeThree.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.25),
+            titleGame.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            titleGame.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             
-            buttonWithCoordsOneOne.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.12),
-            buttonWithCoordsOneTwo.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.12),
-            buttonWithCoordsOneThree.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.12),
-            buttonWithCoordsTwoOne.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.12),
-            buttonWithCoordsTwoTwo.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.12),
-            buttonWithCoordsTwoThree.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.12),
-            buttonWithCoordsThreeOne.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.12),
-            buttonWithCoordsThreeTwo.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.12),
-            buttonWithCoordsThreeThree.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.12),
-
-            stackViewFirstLine.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            stackViewFirstLine.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
-            stackViewSecondLine.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            stackViewFirstLine.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.8),
+            stackViewFirstLine.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.15),
+            stackViewFirstLine.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 300),
+            stackViewFirstLine.topAnchor.constraint(equalTo: titleGame.bottomAnchor),
+            
+            stackViewSecondLine.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.8),
+            stackViewSecondLine.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.15),
+            stackViewSecondLine.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -300),
             stackViewSecondLine.topAnchor.constraint(equalTo: stackViewFirstLine.bottomAnchor),
-            stackViewThirdLine.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            stackViewThirdLine.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.8),
+            stackViewThirdLine.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.15),
+            stackViewThirdLine.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 300),
             stackViewThirdLine.topAnchor.constraint(equalTo: stackViewSecondLine.bottomAnchor),
             
             textResult.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -203,6 +213,18 @@ extension TicTacToeViewController {
             buttonRetry.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.3),
             buttonRetry.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05)
         ])
+    }
+    
+    func animation() {
+        UIView.animate(withDuration: 2, delay: 0.3, options: .curveEaseInOut, animations: { [self] in
+            self.titleGame.layer.opacity = 1
+            self.stackViewFirstLine.layer.opacity = 1
+            self.stackViewSecondLine.layer.opacity = 1
+            self.stackViewThirdLine.layer.opacity = 1
+            self.stackViewFirstLine.transform.tx = -300
+            self.stackViewSecondLine.transform.tx = 300
+            self.stackViewThirdLine.transform.tx = -300
+        })
     }
     
     @objc func buttonActionRetry(_ sender: UIButton!){
