@@ -26,6 +26,11 @@ class CalculatorViewController: UIViewController {
         return textView
     } ()
     
+    lazy var stackViewGeneral: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [textForCalculating, stackViewFirstLine, stackViewSecondLine, stackViewThirdLine, stackViewFourthLine, stackViewFifthLine])
+        return stack
+    } ()
+    
     lazy var stackViewFirstLine: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [buttonDelete, buttonInversion, buttonPercent, buttonDivide])
         return stack
@@ -50,6 +55,17 @@ class CalculatorViewController: UIViewController {
         let stack = UIStackView(arrangedSubviews: [buttonZero, buttonComma, buttonEqually])
         return stack
     } ()
+    
+    lazy var buttonZero: UIButton = setDefaultButtonNumbers("0")
+    lazy var buttonOne: UIButton = setDefaultButtonNumbers("1")
+    lazy var buttonTwo: UIButton = setDefaultButtonNumbers("2")
+    lazy var buttonThree: UIButton = setDefaultButtonNumbers("3")
+    lazy var buttonFour: UIButton = setDefaultButtonNumbers("4")
+    lazy var buttonFive: UIButton = setDefaultButtonNumbers("5")
+    lazy var buttonSix: UIButton = setDefaultButtonNumbers("6")
+    lazy var buttonSeven: UIButton = setDefaultButtonNumbers("7")
+    lazy var buttonEight: UIButton = setDefaultButtonNumbers("8")
+    lazy var buttonNine: UIButton = setDefaultButtonNumbers("9")
     
     lazy var buttonDelete: UIButton = {
         let button = UIButton(type: .system)
@@ -93,39 +109,6 @@ class CalculatorViewController: UIViewController {
         return button
     } ()
     
-    lazy var buttonSeven: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("7", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 28)
-        button.backgroundColor = .darkGray
-        button.layer.cornerRadius = 37
-        button.addTarget(self, action: #selector(buttonActionNumber(_:)), for: .touchUpInside)
-        return button
-    } ()
-    
-    lazy var buttonEight: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("8", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 28)
-        button.backgroundColor = .darkGray
-        button.layer.cornerRadius = 37
-        button.addTarget(self, action: #selector(buttonActionNumber(_:)), for: .touchUpInside)
-        return button
-    } ()
-    
-    lazy var buttonNine: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("9", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 28)
-        button.backgroundColor = .darkGray
-        button.layer.cornerRadius = 37
-        button.addTarget(self, action: #selector(buttonActionNumber(_:)), for: .touchUpInside)
-        return button
-    } ()
-    
     lazy var buttonMultiply: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "multiply", withConfiguration: UIImage.SymbolConfiguration(pointSize: 26, weight: UIImage.SymbolWeight.bold)), for: .normal)
@@ -133,39 +116,6 @@ class CalculatorViewController: UIViewController {
         button.backgroundColor = .systemOrange
         button.layer.cornerRadius = 37
         button.addTarget(self, action: #selector(buttonActionMultiply(_:)), for: .touchUpInside)
-        return button
-    } ()
-    
-    lazy var buttonFour: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("4", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 28)
-        button.backgroundColor = .darkGray
-        button.layer.cornerRadius = 37
-        button.addTarget(self, action: #selector(buttonActionNumber(_:)), for: .touchUpInside)
-        return button
-    } ()
-    
-    lazy var buttonFive: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("5", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 28)
-        button.backgroundColor = .darkGray
-        button.layer.cornerRadius = 37
-        button.addTarget(self, action: #selector(buttonActionNumber(_:)), for: .touchUpInside)
-        return button
-    } ()
-    
-    lazy var buttonSix: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("6", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 28)
-        button.backgroundColor = .darkGray
-        button.layer.cornerRadius = 37
-        button.addTarget(self, action: #selector(buttonActionNumber(_:)), for: .touchUpInside)
         return button
     } ()
     
@@ -179,39 +129,6 @@ class CalculatorViewController: UIViewController {
         return button
     } ()
     
-    lazy var buttonOne: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("1", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 28)
-        button.backgroundColor = .darkGray
-        button.layer.cornerRadius = 37
-        button.addTarget(self, action: #selector(buttonActionNumber(_:)), for: .touchUpInside)
-        return button
-    } ()
-    
-    lazy var buttonTwo: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("2", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 28)
-        button.backgroundColor = .darkGray
-        button.layer.cornerRadius = 37
-        button.addTarget(self, action: #selector(buttonActionNumber(_:)), for: .touchUpInside)
-        return button
-    } ()
-    
-    lazy var buttonThree: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("3", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 28)
-        button.backgroundColor = .darkGray
-        button.layer.cornerRadius = 37
-        button.addTarget(self, action: #selector(buttonActionNumber(_:)), for: .touchUpInside)
-        return button
-    } ()
-    
     lazy var buttonPlus: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "plus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 26, weight: UIImage.SymbolWeight.bold)), for: .normal)
@@ -219,17 +136,6 @@ class CalculatorViewController: UIViewController {
         button.backgroundColor = .systemOrange
         button.layer.cornerRadius = 37
         button.addTarget(self, action: #selector(buttonActionPlus(_:)), for: .touchUpInside)
-        return button
-    } ()
-    
-    lazy var buttonZero: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("0", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 28)
-        button.backgroundColor = .darkGray
-        button.layer.cornerRadius = 37
-        button.addTarget(self, action: #selector(buttonActionNumber(_:)), for: .touchUpInside)
         return button
     } ()
     
@@ -265,76 +171,67 @@ class CalculatorViewController: UIViewController {
 extension CalculatorViewController {
     func setupView() {
         view.backgroundColor = .black
-        view.addSubview(stackViewFifthLine)
-        view.addSubview(stackViewFourthLine)
-        view.addSubview(stackViewThirdLine)
-        view.addSubview(stackViewSecondLine)
-        view.addSubview(stackViewFirstLine)
-        view.addSubview(textForCalculating)
+        view.addSubview(stackViewGeneral)
     }
     
     func makeConstraints() {
-        stackViewFifthLine.translatesAutoresizingMaskIntoConstraints = false
-        stackViewFifthLine.axis = .horizontal
-        stackViewFifthLine.spacing = 10
-        stackViewFifthLine.distribution = .fillEqually
-        
-        stackViewFourthLine.translatesAutoresizingMaskIntoConstraints = false
-        stackViewFourthLine.axis = .horizontal
-        stackViewFourthLine.spacing = 10
-        stackViewFourthLine.distribution = .fillEqually
-        
-        stackViewThirdLine.translatesAutoresizingMaskIntoConstraints = false
-        stackViewThirdLine.axis = .horizontal
-        stackViewThirdLine.spacing = 10
-        stackViewThirdLine.distribution = .fillEqually
-        
-        stackViewSecondLine.translatesAutoresizingMaskIntoConstraints = false
-        stackViewSecondLine.axis = .horizontal
-        stackViewSecondLine.spacing = 10
-        stackViewSecondLine.distribution = .fillEqually
-        
-        stackViewFirstLine.translatesAutoresizingMaskIntoConstraints = false
-        stackViewFirstLine.axis = .horizontal
-        stackViewFirstLine.spacing = 10
-        stackViewFirstLine.distribution = .fillEqually
-        
-        textForCalculating.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            stackViewFifthLine.widthAnchor.constraint(equalTo: view.widthAnchor, constant:  -50),
-            stackViewFifthLine.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.09),
-            stackViewFifthLine.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            stackViewFifthLine.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            buttonZero.widthAnchor.constraint(equalTo: stackViewFifthLine.widthAnchor, multiplier: 0.485),
-            buttonComma.widthAnchor.constraint(equalTo: stackViewFifthLine.widthAnchor, multiplier: 0.23),
-            buttonEqually.widthAnchor.constraint(equalTo: stackViewFifthLine.widthAnchor, multiplier: 0.23),
 
-            
-            stackViewFourthLine.widthAnchor.constraint(equalTo: view.widthAnchor, constant:  -50),
-            stackViewFourthLine.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.09),
-            stackViewFourthLine.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            stackViewFourthLine.bottomAnchor.constraint(equalTo: stackViewFifthLine.topAnchor, constant: -10),
-            
-            stackViewThirdLine.widthAnchor.constraint(equalTo: view.widthAnchor, constant:  -50),
-            stackViewThirdLine.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.09),
-            stackViewThirdLine.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            stackViewThirdLine.bottomAnchor.constraint(equalTo: stackViewFourthLine.topAnchor, constant: -10),
-            
-            stackViewSecondLine.widthAnchor.constraint(equalTo: view.widthAnchor, constant:  -50),
-            stackViewSecondLine.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.09),
-            stackViewSecondLine.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            stackViewSecondLine.bottomAnchor.constraint(equalTo: stackViewThirdLine.topAnchor, constant: -10),
-            
-            stackViewFirstLine.widthAnchor.constraint(equalTo: view.widthAnchor, constant:  -50),
-            stackViewFirstLine.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.09),
-            stackViewFirstLine.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            stackViewFirstLine.bottomAnchor.constraint(equalTo: stackViewSecondLine.topAnchor, constant: -10),
+        stackViewGeneral.translatesAutoresizingMaskIntoConstraints = false
+        stackViewGeneral.axis = .vertical
+        stackViewGeneral.spacing = 10
+        stackViewGeneral.distribution = .fillEqually
+        
+        setDefaultSettingsForStackView([stackViewFifthLine,stackViewFourthLine, stackViewThirdLine, stackViewSecondLine, stackViewFirstLine])
+   
+        NSLayoutConstraint.activate([
+            stackViewGeneral.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            stackViewGeneral.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             
             textForCalculating.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.90),
-            textForCalculating.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            textForCalculating.bottomAnchor.constraint(equalTo: stackViewFirstLine.topAnchor, constant: -20)
+            textForCalculating.trailingAnchor.constraint(equalTo: stackViewGeneral.trailingAnchor),
+            
+            stackViewFifthLine.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.09),
+            stackViewFifthLine.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonZero.widthAnchor.constraint(equalTo: stackViewFifthLine.widthAnchor, multiplier: 0.485),
+            buttonComma.widthAnchor.constraint(equalTo: stackViewFifthLine.widthAnchor, multiplier: 0.23),
+            buttonEqually.widthAnchor.constraint(equalTo: stackViewFifthLine.widthAnchor, multiplier: 0.23)
         ])
+    }
+    
+    func setDefaultSettingsForStackView(_ stacks: [UIStackView?]) {
+        for stack in stacks {
+            stack!.translatesAutoresizingMaskIntoConstraints = false
+            stack!.axis = .horizontal
+            stack!.spacing = 10
+            stack!.distribution = .fillEqually
+        }
+    }
+    
+    func setDefaultButtonNumbers(_ name: String) -> UIButton! {
+        let button = UIButton(type: .system)
+        button.setTitle(name, for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 28)
+        button.backgroundColor = .darkGray
+        button.layer.cornerRadius = 37
+        button.addTarget(self, action: #selector(buttonActionNumber(_:)), for: .touchUpInside)
+        return button
+    }
+    
+    func operationDefinition() {
+        switch currentOperation {
+        case .plus:
+            firstNumber += secondNumber
+        case .minus:
+            firstNumber -= secondNumber
+        case .multi:
+            firstNumber *= secondNumber
+        case .divide:
+            firstNumber /= secondNumber
+        default:
+            break
+        }
+        textForCalculating.text = String(firstNumber)
     }
     
     @objc func buttonActionDelete(_ sender: UIButton!) {
@@ -386,12 +283,22 @@ extension CalculatorViewController {
     
     @objc func buttonActionInversion(_ sender: UIButton!) {
         firstNumber = -firstNumber
-        textForCalculating.text = String(firstNumber)
+        if firstNumber.truncatingRemainder(dividingBy: 1) == 0.0 {
+            resultNumberInteger = Int(floor(firstNumber))
+            textForCalculating.text = String(resultNumberInteger)
+        } else {
+            textForCalculating.text = String(firstNumber)
+        }
     }
     
     @objc func buttonActionProcent(_ sender: UIButton!) {
         firstNumber = firstNumber / 100
-        textForCalculating.text = String(firstNumber)
+        if firstNumber.truncatingRemainder(dividingBy: 1) == 0.0 {
+            resultNumberInteger = Int(floor(firstNumber))
+            textForCalculating.text = String(resultNumberInteger)
+        } else {
+            textForCalculating.text = String(firstNumber)
+        }
     }
     
     @objc func buttonActionComma(_ sender: UIButton!) {
@@ -410,21 +317,5 @@ extension CalculatorViewController {
             textForCalculating.text = String(firstNumber)
         }
         secondNumber = 0
-    }
-
-    func operationDefinition() {
-        switch currentOperation {
-        case .plus:
-            firstNumber += secondNumber
-        case .minus:
-            firstNumber -= secondNumber
-        case .multi:
-            firstNumber *= secondNumber
-        case .divide:
-            firstNumber /= secondNumber
-        default:
-            break
-        }
-        textForCalculating.text = String(firstNumber)
     }
 }
