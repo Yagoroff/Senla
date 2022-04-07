@@ -1,7 +1,25 @@
 import UIKit
 
 class TicTacToeViewController: UIViewController {
-        
+            
+    lazy var stackViewFirstLine: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [buttonWithCoordsOneOne, buttonWithCoordsOneTwo, buttonWithCoordsOneThree])
+        stack.layer.opacity = 0
+        return stack
+    } ()
+    
+    lazy var stackViewSecondLine: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [buttonWithCoordsTwoOne, buttonWithCoordsTwoTwo, buttonWithCoordsTwoThree])
+        stack.layer.opacity = 0
+        return stack
+    } ()
+    
+    lazy var stackViewThirdLine: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [buttonWithCoordsThreeOne, buttonWithCoordsThreeTwo, buttonWithCoordsThreeThree])
+        stack.layer.opacity = 0
+        return stack
+    } ()
+    
     lazy var arrayForCoordinates: [UIButton] = [buttonWithCoordsOneOne, buttonWithCoordsOneTwo, buttonWithCoordsOneThree, buttonWithCoordsTwoOne, buttonWithCoordsTwoTwo, buttonWithCoordsTwoThree, buttonWithCoordsThreeOne, buttonWithCoordsThreeTwo, buttonWithCoordsThreeThree]
     
     lazy var titleGame: UITextView = {
@@ -46,104 +64,15 @@ class TicTacToeViewController: UIViewController {
         return button
     } ()
     
-    lazy var stackViewFirstLine: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [buttonWithCoordsOneOne, buttonWithCoordsOneTwo, buttonWithCoordsOneThree])
-        stack.layer.opacity = 0
-        return stack
-    } ()
-    
-    lazy var stackViewSecondLine: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [buttonWithCoordsTwoOne, buttonWithCoordsTwoTwo, buttonWithCoordsTwoThree])
-        stack.layer.opacity = 0
-        return stack
-    } ()
-    
-    lazy var stackViewThirdLine: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [buttonWithCoordsThreeOne, buttonWithCoordsThreeTwo, buttonWithCoordsThreeThree])
-        stack.layer.opacity = 0
-        return stack
-    } ()
-    
-    lazy var buttonWithCoordsOneOne: UIButton = {
-        let button = UIButton()
-        
-        button.layer.borderWidth = 2
-        button.addTarget(self, action: #selector(buttonActionCoords(_:)), for: .touchUpInside)
-        
-        return button
-    }()
-    
-    lazy var buttonWithCoordsOneTwo: UIButton = {
-        let button = UIButton()
-        
-        button.layer.borderWidth = 2
-        button.addTarget(self, action: #selector(buttonActionCoords(_:)), for: .touchUpInside)
-        
-        return button
-    }()
-    
-    lazy var buttonWithCoordsOneThree: UIButton = {
-        let button = UIButton()
-        
-        button.layer.borderWidth = 2
-        button.addTarget(self, action: #selector(buttonActionCoords(_:)), for: .touchUpInside)
-        
-        return button
-    }()
-    
-    lazy var buttonWithCoordsTwoOne: UIButton = {
-        let button = UIButton()
-        
-        button.layer.borderWidth = 2
-        button.addTarget(self, action: #selector(buttonActionCoords(_:)), for: .touchUpInside)
-        
-        return button
-    }()
-    
-    lazy var buttonWithCoordsTwoTwo: UIButton = {
-        let button = UIButton()
-        
-        button.layer.borderWidth = 2
-        button.addTarget(self, action: #selector(buttonActionCoords(_:)), for: .touchUpInside)
-        
-        return button
-    }()
-    
-    lazy var buttonWithCoordsTwoThree: UIButton = {
-        let button = UIButton()
-        
-        button.layer.borderWidth = 2
-        button.addTarget(self, action: #selector(buttonActionCoords(_:)), for: .touchUpInside)
-        
-        return button
-    }()
-    
-    lazy var buttonWithCoordsThreeOne: UIButton = {
-        let button = UIButton()
-        
-        button.layer.borderWidth = 2
-        button.addTarget(self, action: #selector(buttonActionCoords(_:)), for: .touchUpInside)
-        
-        return button
-    }()
-    
-    lazy var buttonWithCoordsThreeTwo: UIButton = {
-        let button = UIButton()
-        
-        button.layer.borderWidth = 2
-        button.addTarget(self, action: #selector(buttonActionCoords(_:)), for: .touchUpInside)
-        
-        return button
-    }()
-    
-    lazy var buttonWithCoordsThreeThree: UIButton = {
-        let button = UIButton()
-        
-        button.layer.borderWidth = 2
-        button.addTarget(self, action: #selector(buttonActionCoords(_:)), for: .touchUpInside)
-        
-        return button
-    }()
+    lazy var buttonWithCoordsOneOne: UIButton = createButtonsWithDefaultSetings()
+    lazy var buttonWithCoordsOneTwo: UIButton = createButtonsWithDefaultSetings()
+    lazy var buttonWithCoordsOneThree: UIButton = createButtonsWithDefaultSetings()
+    lazy var buttonWithCoordsTwoOne: UIButton = createButtonsWithDefaultSetings()
+    lazy var buttonWithCoordsTwoTwo: UIButton = createButtonsWithDefaultSetings()
+    lazy var buttonWithCoordsTwoThree: UIButton = createButtonsWithDefaultSetings()
+    lazy var buttonWithCoordsThreeOne: UIButton = createButtonsWithDefaultSetings()
+    lazy var buttonWithCoordsThreeTwo: UIButton = createButtonsWithDefaultSetings()
+    lazy var buttonWithCoordsThreeThree: UIButton = createButtonsWithDefaultSetings()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -213,6 +142,15 @@ extension TicTacToeViewController {
             buttonRetry.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.3),
             buttonRetry.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05)
         ])
+    }
+    
+    func createButtonsWithDefaultSetings() -> UIButton! {
+        let button = UIButton()
+        
+        button.layer.borderWidth = 2
+        button.addTarget(self, action: #selector(buttonActionCoords(_:)), for: .touchUpInside)
+        
+        return button
     }
     
     func animation() {

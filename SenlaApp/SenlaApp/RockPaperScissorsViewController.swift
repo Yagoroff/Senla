@@ -6,6 +6,17 @@ class RockPaperScissorsViewController: UIViewController {
 
     private lazy var randChoice = Int.random(in: 0...2)
     
+    private lazy var buttonRock: UIButton = createButton("rock")
+    private lazy var buttonPaper: UIButton = createButton("paper")
+    private lazy var buttonScissors: UIButton = createButton("scissors")
+
+    private lazy var imageRockUsers: UIImageView = createImage("rock")
+    private lazy var imagePaperUsers: UIImageView = createImage("paper")
+    private lazy var imageScissorsUsers: UIImageView = createImage("scissors")
+    private lazy var imageRockRandom: UIImageView = createImage("rock")
+    private lazy var imagePaperRandom: UIImageView = createImage("paper")
+    private lazy var imageScissorsRandom: UIImageView = createImage("scissors")
+    
     private lazy var textResult: UITextView = {
         let textView = UITextView()
         textView.font = UIFont.boldSystemFont(ofSize: 18)
@@ -33,66 +44,6 @@ class RockPaperScissorsViewController: UIViewController {
         buttonForReturn.addTarget(self, action: #selector(buttonActionRetry(_:)), for: .touchUpInside)
         
         return buttonForReturn
-    } ()
-    
-    private lazy var buttonRock: UIButton = {
-        let buttonForReturn = UIButton(type: .system)
-        buttonForReturn.setImage(UIImage(named: "rock"), for: .normal)
-        buttonForReturn.tintColor = .black
-
-        buttonForReturn.addTarget(self, action: #selector(buttonActionPlay(_:)), for: .touchUpInside)
-                        
-        return buttonForReturn
-    } ()
-    
-    private lazy var buttonPaper: UIButton = {
-        let buttonForReturn = UIButton(type: .system)
-        buttonForReturn.setImage(UIImage(named: "paper"), for: .normal)
-        buttonForReturn.tintColor = .black
-
-        buttonForReturn.addTarget(self, action: #selector(buttonActionPlay(_:)), for: .touchUpInside)
-                
-        return buttonForReturn
-    } ()
-    
-    private lazy var buttonScissors: UIButton = {
-        let buttonForReturn = UIButton(type: .system)
-        buttonForReturn.setImage(UIImage(named: "scissors"), for: .normal)
-        buttonForReturn.tintColor = .black
-
-        buttonForReturn.addTarget(self, action: #selector(buttonActionPlay(_:)), for: .touchUpInside)
-                
-        return buttonForReturn
-    } ()
-
-    private lazy var imageRockUsers: UIImageView = {
-        let imageForReturn = UIImageView(image: UIImage(named: "rock"))
-        return imageForReturn
-    } ()
-    
-    private lazy var imagePaperUsers: UIImageView = {
-        let imageForReturn = UIImageView(image: UIImage(named: "paper"))
-        return imageForReturn
-    } ()
-    
-    private lazy var imageScissorsUsers: UIImageView = {
-        let imageForReturn = UIImageView(image: UIImage(named: "scissors"))
-        return imageForReturn
-    } ()
-    
-    private lazy var imageRockRandom: UIImageView = {
-        let imageForReturn = UIImageView(image: UIImage(named: "rock"))
-        return imageForReturn
-    } ()
-    
-    private lazy var imagePaperRandom: UIImageView = {
-        let imageForReturn = UIImageView(image: UIImage(named: "paper"))
-        return imageForReturn
-    } ()
-    
-    private lazy var imageScissorsRandom: UIImageView = {
-        let imageForReturn = UIImageView(image: UIImage(named: "scissors"))
-        return imageForReturn
     } ()
     
     private lazy var buttonSettings: UIButton = {
@@ -204,6 +155,20 @@ private extension RockPaperScissorsViewController {
         
     }
 
+    func createImage(_ name: String) -> UIImageView {
+        let imageForReturn = UIImageView(image: UIImage(named: name))
+        return imageForReturn
+    }
+    
+    func createButton(_ name: String) -> UIButton {
+        let buttonForReturn = UIButton(type: .system)
+        buttonForReturn.setImage(UIImage(named: name), for: .normal)
+        buttonForReturn.tintColor = .black
+
+        buttonForReturn.addTarget(self, action: #selector(buttonActionPlay(_:)), for: .touchUpInside)
+                
+        return buttonForReturn
+    }
     
     func switchLanguage() -> Array<String> {
         guard settingViewController.currentLanguage == "english" else {

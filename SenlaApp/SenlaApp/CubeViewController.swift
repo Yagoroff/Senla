@@ -27,41 +27,12 @@ class CubeViewController: UIViewController {
         return stack
     } ()
     
-    private lazy var cubeFirst: UIImageView = {
-        let image = UIImageView(image: UIImage(named: "one"))
-        image.layer.opacity = 0
-        return image
-    } ()
-    
-    private lazy var cubeSecond: UIImageView = {
-        let image = UIImageView(image: UIImage(named: "two"))
-        image.layer.opacity = 0
-        return image
-    } ()
-    
-    private lazy var cubeThird: UIImageView = {
-        let image = UIImageView(image: UIImage(named: "three"))
-        image.layer.opacity = 0
-        return image
-    } ()
-    
-    private lazy var cubeFourth: UIImageView = {
-        let image = UIImageView(image: UIImage(named: "four"))
-        image.layer.opacity = 0
-        return image
-    } ()
-    
-    private lazy var cubeFifth: UIImageView = {
-        let image = UIImageView(image: UIImage(named: "five"))
-        image.layer.opacity = 0
-        return image
-    } ()
-    
-    private lazy var cubeSixth: UIImageView = {
-        let image = UIImageView(image: UIImage(named: "six"))
-        image.layer.opacity = 0
-        return image
-    } ()
+    private lazy var cubeFirst: UIImageView = createImage("one")
+    private lazy var cubeSecond: UIImageView = createImage("two")
+    private lazy var cubeThird: UIImageView = createImage("three")
+    private lazy var cubeFourth: UIImageView = createImage("four")
+    private lazy var cubeFifth: UIImageView = createImage("five")
+    private lazy var cubeSixth: UIImageView = createImage("six")
     
     private lazy var playButton: UIButton = {
         let buttonForReturn = UIButton(type: .system)
@@ -153,6 +124,12 @@ extension CubeViewController {
             stackViewSecondLine.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             stackViewSecondLine.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -30)
         ])
+    }
+    
+    func createImage(_ name: String) -> UIImageView {
+        let image = UIImageView(image: UIImage(named: name))
+        image.layer.opacity = 0
+        return image
     }
     
     @objc private func buttonActionPlay(_ sender: UIButton!) {
