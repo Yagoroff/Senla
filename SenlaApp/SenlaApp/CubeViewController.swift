@@ -17,15 +17,9 @@ class CubeViewController: UIViewController {
     
     private lazy var randomNumber: Int = Int.random(in: 1...6)
     
-    private lazy var stackViewFirstLine: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [cubeFirst, cubeSecond, cubeThird])
-        return stack
-    } ()
+    private lazy var stackViewFirstLine = UIStackView()
     
-    private lazy var stackViewSecondLine: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [cubeFourth, cubeFifth, cubeSixth])
-        return stack
-    } ()
+    private lazy var stackViewSecondLine = UIStackView()
     
     private lazy var cubeFirst: UIImageView = createImage("one")
     private lazy var cubeSecond: UIImageView = createImage("two")
@@ -79,12 +73,22 @@ class CubeViewController: UIViewController {
 extension CubeViewController {
     func setupView() {
         view.backgroundColor = .white
+        appendArrangedSubviews()
         view.addSubview(titleGame)
         view.addSubview(stackViewFirstLine)
         view.addSubview(stackViewSecondLine)
         view.addSubview(playButton)
         view.addSubview(retryButton)
         retryButton.isHidden = true
+    }
+    
+    func appendArrangedSubviews() {
+        stackViewFirstLine.addArrangedSubview(cubeFirst)
+        stackViewFirstLine.addArrangedSubview(cubeSecond)
+        stackViewFirstLine.addArrangedSubview(cubeThird)
+        stackViewSecondLine.addArrangedSubview(cubeFourth)
+        stackViewSecondLine.addArrangedSubview(cubeFifth)
+        stackViewSecondLine.addArrangedSubview(cubeSixth)
     }
     
     func makeConstraints() {

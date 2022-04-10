@@ -3,20 +3,20 @@ import UIKit
 class TicTacToeViewController: UIViewController {
             
     lazy var stackViewFirstLine: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [buttonWithCoordsOneOne, buttonWithCoordsOneTwo, buttonWithCoordsOneThree])
-        stack.layer.opacity = 0
+        let stack = UIStackView()
+        setDefaultSettingsForStack(stack: stack)
         return stack
     } ()
     
     lazy var stackViewSecondLine: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [buttonWithCoordsTwoOne, buttonWithCoordsTwoTwo, buttonWithCoordsTwoThree])
-        stack.layer.opacity = 0
+        let stack = UIStackView()
+        setDefaultSettingsForStack(stack: stack)
         return stack
     } ()
     
     lazy var stackViewThirdLine: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [buttonWithCoordsThreeOne, buttonWithCoordsThreeTwo, buttonWithCoordsThreeThree])
-        stack.layer.opacity = 0
+        let stack = UIStackView()
+        setDefaultSettingsForStack(stack: stack)
         return stack
     } ()
     
@@ -34,13 +34,13 @@ class TicTacToeViewController: UIViewController {
         return textView
     } ()
     
-    lazy var matrix = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    private var matrix = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     
-    lazy var winningVersions = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
+    private let winningVersions = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
     
-    lazy var playersFields: Array<Int> = []
+    private var playersFields: Array<Int> = []
 
-    lazy var computerFields: Array<Int> = []
+    private var computerFields: Array<Int> = []
     
     lazy var textResult: UITextView = {
         let textView = UITextView()
@@ -53,7 +53,7 @@ class TicTacToeViewController: UIViewController {
         return textView
     } ()
     
-    lazy var buttonRetry: UIButton = {
+    private let buttonRetry: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("RETRY", for: .normal)
         button.setTitleColor(.black, for: .normal)
@@ -88,6 +88,7 @@ extension TicTacToeViewController {
         title = "TicTacToe"
         view.backgroundColor = .white
         view.addSubview(titleGame)
+        appendArrangedSubviews()
         view.addSubview(stackViewFirstLine)
         view.addSubview(stackViewSecondLine)
         view.addSubview(stackViewThirdLine)
@@ -97,21 +98,24 @@ extension TicTacToeViewController {
         buttonRetry.isHidden = true
     }
     
+    func appendArrangedSubviews() {
+        stackViewFirstLine.addArrangedSubview(buttonWithCoordsOneOne)
+        stackViewFirstLine.addArrangedSubview(buttonWithCoordsOneTwo)
+        stackViewFirstLine.addArrangedSubview(buttonWithCoordsOneThree)
+        stackViewSecondLine.addArrangedSubview(buttonWithCoordsTwoOne)
+        stackViewSecondLine.addArrangedSubview(buttonWithCoordsTwoTwo)
+        stackViewSecondLine.addArrangedSubview(buttonWithCoordsTwoThree)
+        stackViewThirdLine.addArrangedSubview(buttonWithCoordsThreeOne)
+        stackViewThirdLine.addArrangedSubview(buttonWithCoordsThreeTwo)
+        stackViewThirdLine.addArrangedSubview(buttonWithCoordsThreeThree)
+        
+    }
+    
     func makeConstraints() {
         titleGame.translatesAutoresizingMaskIntoConstraints = false
-        
         stackViewFirstLine.translatesAutoresizingMaskIntoConstraints = false
-        stackViewFirstLine.axis = .horizontal
-        stackViewFirstLine.distribution = .fillEqually
-
         stackViewSecondLine.translatesAutoresizingMaskIntoConstraints = false
-        stackViewSecondLine.axis = .horizontal
-        stackViewSecondLine.distribution = .fillEqually
-        
         stackViewThirdLine.translatesAutoresizingMaskIntoConstraints = false
-        stackViewThirdLine.axis = .horizontal
-        stackViewThirdLine.distribution = .fillEqually
-        
         textResult.translatesAutoresizingMaskIntoConstraints = false
         buttonRetry.translatesAutoresizingMaskIntoConstraints = false
         
@@ -142,6 +146,12 @@ extension TicTacToeViewController {
             buttonRetry.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.3),
             buttonRetry.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05)
         ])
+    }
+    
+    func setDefaultSettingsForStack(stack: UIStackView) {
+        stack.layer.opacity = 0
+        stack.axis = .horizontal
+        stack.distribution = .fillEqually
     }
     
     func createButtonsWithDefaultSetings() -> UIButton! {

@@ -4,18 +4,18 @@ class RockPaperScissorsViewController: UIViewController {
     
     let settingViewController = SettingsViewController()
 
-    private lazy var randChoice = Int.random(in: 0...2)
+    lazy var randChoice = Int.random(in: 0...2)
     
-    private lazy var buttonRock: UIButton = createButton("rock")
-    private lazy var buttonPaper: UIButton = createButton("paper")
-    private lazy var buttonScissors: UIButton = createButton("scissors")
+    lazy var buttonRock: UIButton = createButton("rock")
+    lazy var buttonPaper: UIButton = createButton("paper")
+    lazy var buttonScissors: UIButton = createButton("scissors")
 
-    private lazy var imageRockUsers: UIImageView = createImage("rock")
-    private lazy var imagePaperUsers: UIImageView = createImage("paper")
-    private lazy var imageScissorsUsers: UIImageView = createImage("scissors")
-    private lazy var imageRockRandom: UIImageView = createImage("rock")
-    private lazy var imagePaperRandom: UIImageView = createImage("paper")
-    private lazy var imageScissorsRandom: UIImageView = createImage("scissors")
+    lazy var imageRockUsers: UIImageView = createImage("rock")
+    lazy var imagePaperUsers: UIImageView = createImage("paper")
+    lazy var imageScissorsUsers: UIImageView = createImage("scissors")
+    lazy var imageRockRandom: UIImageView = createImage("rock")
+    lazy var imagePaperRandom: UIImageView = createImage("paper")
+    lazy var imageScissorsRandom: UIImageView = createImage("scissors")
     
     private lazy var textResult: UITextView = {
         let textView = UITextView()
@@ -28,13 +28,13 @@ class RockPaperScissorsViewController: UIViewController {
     } ()
     
     lazy var stackViewItems: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [buttonRock, buttonPaper, buttonScissors])
+        let stack = UIStackView()
         stack.layer.opacity = 0
 
         return stack
     } ()
     
-    private lazy var buttonRetry: UIButton = {
+    private let buttonRetry: UIButton = {
         let buttonForReturn = UIButton(type: .system)
         buttonForReturn.setTitle("RETRY", for: .normal)
         buttonForReturn.setTitleColor(.black, for: .normal)
@@ -46,7 +46,7 @@ class RockPaperScissorsViewController: UIViewController {
         return buttonForReturn
     } ()
     
-    private lazy var buttonSettings: UIButton = {
+    private let buttonSettings: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "gearshape", withConfiguration: UIImage.SymbolConfiguration(pointSize: 26)), for: .normal)
         button.imageView?.tintColor = .black
@@ -71,6 +71,7 @@ class RockPaperScissorsViewController: UIViewController {
 private extension RockPaperScissorsViewController {
     func setupView() {
         view.backgroundColor = .white
+        appendArrangedSubviews()
         view.addSubview(stackViewItems)
         view.addSubview(buttonSettings)
         view.addSubview(textResult)
@@ -88,6 +89,12 @@ private extension RockPaperScissorsViewController {
         imageRockUsers.isHidden = true
         imagePaperUsers.isHidden = true
         imageScissorsUsers.isHidden = true
+    }
+    
+    func appendArrangedSubviews() {
+        stackViewItems.addArrangedSubview(buttonRock)
+        stackViewItems.addArrangedSubview(buttonPaper)
+        stackViewItems.addArrangedSubview(buttonScissors)
     }
     
     func makeConstraints() {
