@@ -8,30 +8,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         window = UIWindow(frame: UIScreen.main.bounds)
-        
-        let tabBarController = UITabBarController()
-
-        let cubeViewController = CubeViewController()
-        cubeViewController.tabBarItem = UITabBarItem(title: "Cube", image: UIImage(systemName: "cube.fill"), selectedImage: nil)
-        
-        let rockPaperScissorsViewController = RockPaperScissorsViewController()
-        let navigationController = UINavigationController(rootViewController: rockPaperScissorsViewController)
-        navigationController.tabBarItem = UITabBarItem(title: "RockPaperScissors", image: UIImage(systemName: "scissors"), selectedImage: nil)
-        
-        let ticTacToeViewController = TicTacToeViewController()
-        ticTacToeViewController.tabBarItem = UITabBarItem(title: "TicTacToe", image: UIImage(systemName: "multiply.circle"), selectedImage: nil)
-        
-        let calculatorViewControleer = CalculatorViewController()
-        calculatorViewControleer.tabBarItem = UITabBarItem(title: "Calculator", image: UIImage(systemName: "x.squareroot"), selectedImage: nil)
-                
-        tabBarController.tabBar.barTintColor = .gray
-        tabBarController.tabBar.tintColor = .darkGray
-        
-        tabBarController.viewControllers = [navigationController, cubeViewController, ticTacToeViewController, calculatorViewControleer]
-                
-        window?.rootViewController = tabBarController
+        window?.rootViewController = TabBarViewController()
         window?.makeKeyAndVisible()
-    
         return true
     }
 }

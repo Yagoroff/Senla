@@ -1,9 +1,9 @@
 import UIKit
 
-class RockPaperScissorsViewController: UIViewController {
+class RockPaperScissorsViewController: UIViewController {    
     
     let settingViewController = SettingsViewController()
-
+    
     lazy var randChoice = Int.random(in: 0...2)
     
     lazy var buttonRock: UIButton = createButton("rock")
@@ -219,16 +219,19 @@ private extension RockPaperScissorsViewController {
                 imageRockRandom.isHidden = false
                 imagePaperRandom.isHidden = true
                 imageScissorsRandom.isHidden = true
+                historyOfRockPaperScissors.append(RockPaperScissors(imagePlayer: UIImage(named: "rock")!, imageComputer: UIImage(named: "rock")!, result: textResult.text))
             case 1:
                 textResult.text = language[2]
                 imageRockRandom.isHidden = true
                 imagePaperRandom.isHidden = false
                 imageScissorsRandom.isHidden = true
+                historyOfRockPaperScissors.append(RockPaperScissors(imagePlayer: UIImage(named: "rock")!, imageComputer: UIImage(named: "paper")!, result: textResult.text))
             case 2:
                 textResult.text = language[1]
                 imageRockRandom.isHidden = true
                 imagePaperRandom.isHidden = true
                 imageScissorsRandom.isHidden = false
+                historyOfRockPaperScissors.append(RockPaperScissors(imagePlayer: UIImage(named: "rock")!, imageComputer: UIImage(named: "scissors")!, result: textResult.text))
             default:
                 break
             }
@@ -238,7 +241,7 @@ private extension RockPaperScissorsViewController {
             imageScissorsUsers.isHidden = true
             stackViewItems.isHidden = true
             buttonRetry.isHidden = false
-            
+                    
         } else if sender == buttonPaper {
             let arrayForModeWithoutDraw: Array<Int> = [0, 2]
             
@@ -254,16 +257,19 @@ private extension RockPaperScissorsViewController {
                 imageRockRandom.isHidden = true
                 imagePaperRandom.isHidden = false
                 imageScissorsRandom.isHidden = true
+                historyOfRockPaperScissors.append(RockPaperScissors(imagePlayer: UIImage(named: "paper")!, imageComputer: UIImage(named: "paper")!, result: textResult.text))
             case 2:
                 textResult.text = language[2]
                 imageRockRandom.isHidden = true
                 imagePaperRandom.isHidden = true
                 imageScissorsRandom.isHidden = false
+                historyOfRockPaperScissors.append(RockPaperScissors(imagePlayer: UIImage(named: "paper")!, imageComputer: UIImage(named: "scissors")!, result: textResult.text))
             case 0 :
                 textResult.text = language[1]
                 imageRockRandom.isHidden = false
                 imagePaperRandom.isHidden = true
                 imageScissorsRandom.isHidden = true
+                historyOfRockPaperScissors.append(RockPaperScissors(imagePlayer: UIImage(named: "paper")!, imageComputer: UIImage(named: "rock")!, result: textResult.text))
             default:
                 break
             }
@@ -273,7 +279,7 @@ private extension RockPaperScissorsViewController {
             imageScissorsUsers.isHidden = true
             stackViewItems.isHidden = true
             buttonRetry.isHidden = false
-            
+                        
         } else if sender == buttonScissors {
             if settingViewController.statusDrawMode {
                 randChoice = Int.random(in: 0...2)
@@ -287,16 +293,19 @@ private extension RockPaperScissorsViewController {
                 imageRockRandom.isHidden = true
                 imagePaperRandom.isHidden = true
                 imageScissorsRandom.isHidden = false
+                historyOfRockPaperScissors.append(RockPaperScissors(imagePlayer: UIImage(named: "scissors")!, imageComputer: UIImage(named: "scissors")!, result: textResult.text))
             case 0:
                 textResult.text = language[2]
                 imageRockRandom.isHidden = false
                 imagePaperRandom.isHidden = true
                 imageScissorsRandom.isHidden = true
+                historyOfRockPaperScissors.append(RockPaperScissors(imagePlayer: UIImage(named: "scissors")!, imageComputer: UIImage(named: "rock")!, result: textResult.text))
             case 1:
                 textResult.text = language[1]
                 imageRockRandom.isHidden = true
                 imagePaperRandom.isHidden = false
                 imageScissorsRandom.isHidden = true
+                historyOfRockPaperScissors.append(RockPaperScissors(imagePlayer: UIImage(named: "scissors")!, imageComputer: UIImage(named: "paper")!, result: textResult.text))
             default:
                 break
             }
