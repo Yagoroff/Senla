@@ -1,15 +1,11 @@
-//
-//  HistoryCell.swift
-//  SenlaApp
-//
-//  Created by Игорь Ходжгоров on 13.04.2022.
-//
-
+import Foundation
 import UIKit
+
+
 
 class RockPaperScissorsCell: UICollectionViewCell {
     
-    static let identifier = "HistoryCell"
+    static var reuseId: String = "RockPaperScissorsCell"
     
     let resultLabel: UILabel = {
         let label = UILabel()
@@ -30,10 +26,6 @@ class RockPaperScissorsCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupCell()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     private func setupCell() {
@@ -70,4 +62,9 @@ class RockPaperScissorsCell: UICollectionViewCell {
         self.playerImage.image = playerImage
         self.computerImage.image = computerImage
     }
+        
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 }

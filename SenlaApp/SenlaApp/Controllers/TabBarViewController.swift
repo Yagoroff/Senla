@@ -27,7 +27,7 @@ class TabBarViewController: UITabBarController {
         let calculatorViewControleer = CalculatorViewController()
         calculatorViewControleer.tabBarItem = UITabBarItem.init(title: "Calculator", image: UIImage(systemName: "x.squareroot"), tag: 3)
         
-        let historyViewController = HistoryViewController()
+        let historyViewController = ViewController()
         historyViewController.tabBarItem = UITabBarItem(title: "History", image: UIImage(systemName: "book"), tag: 4)
         historyViewController.tabBarItem.selectedImage = UIImage(systemName: "book.fill")
         

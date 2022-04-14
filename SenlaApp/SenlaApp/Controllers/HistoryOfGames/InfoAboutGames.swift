@@ -8,10 +8,12 @@ struct RockPaperScissors {
 }
 
 struct TicTacToe {
-    let imagePlayer: UIImage
-    let imageComputer: UIImage
     let result: String
 }
 
 var historyOfRockPaperScissors: [RockPaperScissors] = []
-var histroyOfTicTacToe: [TicTacToe] = []
+var historyOfTicTacToe: [TicTacToe] = []
+var countOfGamesInTicTacToe: Int = 0
+var countOfWinInTicTacToe: Int = 0
+var countOfGamesInRockPaperScissors: Int = 0
+var countOfWinInRockPaperScissors: Int = 0
