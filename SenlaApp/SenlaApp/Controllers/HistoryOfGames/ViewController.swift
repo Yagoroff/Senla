@@ -8,8 +8,10 @@ class ViewController: UIViewController {
     
     var buttonUpdate: UIButton = {
         let button = UIButton()
-        button.setTitle("Обновить", for: .normal)
-        button.backgroundColor = .systemGray
+        button.setTitle("ОБНОВИТЬ", for: .normal)
+        button.backgroundColor = .systemGray5
+        button.setTitleColor(.black, for: .normal)
+        button.layer.cornerRadius = 15
         button.addTarget(self, action: #selector(updateDataSource(_:)), for: .touchUpInside)
         return button
     }()
@@ -31,7 +33,8 @@ extension ViewController {
         collectionView.backgroundColor = .white
         collectionView.register(RockPaperScissorsCell.self, forCellWithReuseIdentifier: RockPaperScissorsCell.reuseId)
         collectionView.register(TicTacToeCell.self, forCellWithReuseIdentifier: TicTacToeCell.reuseId)
-        collectionView.register(StatisticsCell.self, forCellWithReuseIdentifier: StatisticsCell.reuseId)
+        collectionView.register(StatisticsTicTacToeCell.self, forCellWithReuseIdentifier: StatisticsTicTacToeCell.reuseId)
+        collectionView.register(StatisticsRockPaperScissorsCell.self, forCellWithReuseIdentifier: StatisticsRockPaperScissorsCell.reuseId)
 
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -50,7 +53,7 @@ extension ViewController {
             
             buttonUpdate.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             buttonUpdate.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
-            buttonUpdate.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            buttonUpdate.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -15)
         ])
     }
     
@@ -78,7 +81,7 @@ extension ViewController {
     private func createSectionForRPS() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.2))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        
+        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 0)
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.3))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         
@@ -91,10 +94,9 @@ extension ViewController {
     private func createSectionForTicTacToe() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.2))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        
+        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 0)
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.3))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-        
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
         
@@ -105,7 +107,7 @@ extension ViewController {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.1))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.2))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         
         let section = NSCollectionLayoutSection(group: group)
@@ -155,26 +157,39 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
             
             return cell
         case .statistics:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StatisticsCell.reuseId, for: indexPath) as? StatisticsCell else { fatalError() }
-            
             if indexPath.row == 0 {
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StatisticsTicTacToeCell.reuseId, for: indexPath) as? StatisticsTicTacToeCell else { fatalError() }
+
                 guard countOfGamesInTicTacToe != 0 else {
-                    cell.configure(percent: "Вы еще не играли в Крестики-Нолики")
+                    cell.configure(name: "Крестики-Нолики", percent: "Вы еще не играли в Крестики-Нолики")
                     return cell
                 }
-                let percent = String(floor((Double(countOfWinInTicTacToe) / Double(countOfGamesInTicTacToe) * 100))) + "% выигрыша"
+                let percent = String(floor((Double(countOfWinInTicTacToe) / Double(countOfGamesInTicTacToe) * 100))) + "% побед"
                 
-                cell.configure(percent: percent)
+                cell.configure(name: "Крестики-Нолики", percent: percent)
                 
                 return cell
             } else {
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StatisticsRockPaperScissorsCell.reuseId, for: indexPath) as? StatisticsRockPaperScissorsCell else { fatalError() }
+                
                 guard countOfGamesInRockPaperScissors != 0 else {
-                    cell.configure(percent: "Вы еще не играли в К-Н-Б")
+                    cell.configure(name: "Камень-Ножницы-Бумага", percentForRock: "Не было игр", percentForPaper: "Не было игр", pecentForScissors: "Не было игр")
                     return cell
                 }
-                let percent = String(floor((Double(countOfWinInRockPaperScissors) / Double(countOfGamesInRockPaperScissors) * 100))) + "% выигрыша"
                 
-                cell.configure(percent: percent)
+                var percentWinWithRock = String(floor((Double(countOfWinByRock) / Double(countOfPickRock) * 100))) + "% побед"
+                var percentWinWithScissors = String(floor((Double(countOfWinByScissors) / Double(countOfPickScissors) * 100))) + "% побед"
+                var percentWinWithPaper = String(floor((Double(countOfWinByPaper) / Double(countOfPickPaper) * 100))) + "% побед"
+                
+                if percentWinWithRock == "nan% побед" {
+                    percentWinWithRock = "Не было игр"
+                } else if percentWinWithPaper == "nan% побед" {
+                    percentWinWithPaper = "Не было игр"
+                } else if percentWinWithScissors == "nan% побед" {
+                    percentWinWithScissors = "Не было игр"
+                }
+                
+                cell.configure(name: "Камень-Ножницы-Бумага", percentForRock: percentWinWithRock, percentForPaper: percentWinWithPaper, pecentForScissors: percentWinWithScissors)
                 
                 return cell
             }

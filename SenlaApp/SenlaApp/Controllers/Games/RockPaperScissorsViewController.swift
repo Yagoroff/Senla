@@ -208,6 +208,7 @@ private extension RockPaperScissorsViewController {
         countOfGamesInRockPaperScissors += 1
         
         if sender == buttonRock {
+            countOfPickRock += 1
             if settingViewController.statusDrawMode {
                 randChoice = Int.random(in: 0...2)
             } else {
@@ -228,7 +229,7 @@ private extension RockPaperScissorsViewController {
                 imageScissorsRandom.isHidden = true
                 historyOfRockPaperScissors.append(RockPaperScissors(imagePlayer: UIImage(named: "rock")!, imageComputer: UIImage(named: "paper")!, result: textResult.text))
             case 2:
-                countOfWinInRockPaperScissors += 1
+                countOfWinByRock += 1
                 textResult.text = language[1]
                 imageRockRandom.isHidden = true
                 imagePaperRandom.isHidden = true
@@ -245,6 +246,8 @@ private extension RockPaperScissorsViewController {
             buttonRetry.isHidden = false
                     
         } else if sender == buttonPaper {
+            countOfPickPaper += 1
+
             let arrayForModeWithoutDraw: Array<Int> = [0, 2]
             
             if settingViewController.statusDrawMode {
@@ -267,7 +270,7 @@ private extension RockPaperScissorsViewController {
                 imageScissorsRandom.isHidden = false
                 historyOfRockPaperScissors.append(RockPaperScissors(imagePlayer: UIImage(named: "paper")!, imageComputer: UIImage(named: "scissors")!, result: textResult.text))
             case 0 :
-                countOfWinInRockPaperScissors += 1
+                countOfWinByPaper += 1
                 textResult.text = language[1]
                 imageRockRandom.isHidden = false
                 imagePaperRandom.isHidden = true
@@ -284,6 +287,8 @@ private extension RockPaperScissorsViewController {
             buttonRetry.isHidden = false
                         
         } else if sender == buttonScissors {
+            countOfPickScissors += 1
+
             if settingViewController.statusDrawMode {
                 randChoice = Int.random(in: 0...2)
             } else {
@@ -304,7 +309,7 @@ private extension RockPaperScissorsViewController {
                 imageScissorsRandom.isHidden = true
                 historyOfRockPaperScissors.append(RockPaperScissors(imagePlayer: UIImage(named: "scissors")!, imageComputer: UIImage(named: "rock")!, result: textResult.text))
             case 1:
-                countOfWinInRockPaperScissors += 1
+                countOfWinByScissors += 1
                 textResult.text = language[1]
                 imageRockRandom.isHidden = true
                 imagePaperRandom.isHidden = false
