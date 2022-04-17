@@ -38,13 +38,13 @@ final class StatisticsTicTacToeCell: UICollectionViewCell {
         
         NSLayoutConstraint.activate([
             nameOfGame.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            nameOfGame.topAnchor.constraint(equalTo: contentView.topAnchor),
+            nameOfGame.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
             
             playerImage.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            playerImage.topAnchor.constraint(equalTo: nameOfGame.bottomAnchor, constant: 10),
+            playerImage.topAnchor.constraint(equalTo: nameOfGame.bottomAnchor, constant: 20),
             
             winningPercentage.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            winningPercentage.topAnchor.constraint(equalTo: playerImage.bottomAnchor, constant: 10)
+            winningPercentage.topAnchor.constraint(equalTo: playerImage.bottomAnchor, constant: 20)
         ])
     }
 
@@ -116,21 +116,21 @@ final class StatisticsRockPaperScissorsCell: UICollectionViewCell {
         
         NSLayoutConstraint.activate([
             nameOfGame.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            nameOfGame.topAnchor.constraint(equalTo: contentView.topAnchor),
+            nameOfGame.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
         
             imageRock.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 50),
-            imageRock.topAnchor.constraint(equalTo: nameOfGame.bottomAnchor, constant:  10),
-            winByRock.topAnchor.constraint(equalTo: imageRock.bottomAnchor, constant: 10),
+            imageRock.topAnchor.constraint(equalTo: nameOfGame.bottomAnchor, constant:  15),
+            winByRock.topAnchor.constraint(equalTo: imageRock.bottomAnchor, constant: 20),
             winByRock.centerXAnchor.constraint(equalTo: imageRock.centerXAnchor),
             
             imagePaper.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            imagePaper.topAnchor.constraint(equalTo: nameOfGame.bottomAnchor, constant: 10),
-            winByPaper.topAnchor.constraint(equalTo: imagePaper.bottomAnchor, constant: 10),
+            imagePaper.topAnchor.constraint(equalTo: nameOfGame.bottomAnchor, constant: 15),
+            winByPaper.topAnchor.constraint(equalTo: imagePaper.bottomAnchor, constant: 20),
             winByPaper.centerXAnchor.constraint(equalTo: imagePaper.centerXAnchor),
             
             imageScissors.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50),
-            imageScissors.topAnchor.constraint(equalTo: nameOfGame.bottomAnchor, constant: 10),
-            winByScissors.topAnchor.constraint(equalTo: imageScissors.bottomAnchor, constant: 10),
+            imageScissors.topAnchor.constraint(equalTo: nameOfGame.bottomAnchor, constant: 15),
+            winByScissors.topAnchor.constraint(equalTo: imageScissors.bottomAnchor, constant: 20),
             winByScissors.centerXAnchor.constraint(equalTo: imageScissors.centerXAnchor)
         ])
     }

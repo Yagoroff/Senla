@@ -35,8 +35,6 @@ final class TicTacToeCell: UICollectionViewCell {
     private func setupCell() {
         contentView.layer.opacity = 0
         contentView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 300).isActive = true
-        contentView.backgroundColor = .white
-        contentView.layer.cornerRadius = 20
         [resultLabel, playerImage, computerImage].forEach {
             contentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -48,12 +46,12 @@ final class TicTacToeCell: UICollectionViewCell {
             
             playerImage.heightAnchor.constraint(equalTo: contentView.heightAnchor, constant: -15),
             playerImage.widthAnchor.constraint(equalTo: contentView.heightAnchor, constant: -15),
-            playerImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            playerImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             playerImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             
             computerImage.heightAnchor.constraint(equalTo: contentView.heightAnchor, constant: -15),
             computerImage.widthAnchor.constraint(equalTo: contentView.heightAnchor, constant: -15),
-            computerImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            computerImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             computerImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
         ])
     }

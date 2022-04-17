@@ -46,12 +46,12 @@ final class RockPaperScissorsCell: UICollectionViewCell {
             
             playerImage.heightAnchor.constraint(equalTo: contentView.heightAnchor, constant: -15),
             playerImage.widthAnchor.constraint(equalTo: contentView.heightAnchor, constant: -15),
-            playerImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            playerImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             playerImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             
             computerImage.heightAnchor.constraint(equalTo: contentView.heightAnchor, constant: -15),
             computerImage.widthAnchor.constraint(equalTo: contentView.heightAnchor, constant: -15),
-            computerImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            computerImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             computerImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
         ])
     }

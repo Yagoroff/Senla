@@ -2,7 +2,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    static let sectionBackgroundDecorationElementKind = "section-background-element-kind"
+    static let sectionBackground = "background"
 
     enum Section: Int, CaseIterable {
         case statistics, rockPaperScissors, ticTacToe
@@ -72,43 +72,27 @@ extension ViewController {
             }
         }
         
-        
         let config = UICollectionViewCompositionalLayoutConfiguration()
         config.interSectionSpacing = 25
         layout.configuration = config
         layout.register(
             SectionBackgroundDecorationView.self,
-            forDecorationViewOfKind: ViewController.sectionBackgroundDecorationElementKind)
+            forDecorationViewOfKind: ViewController.sectionBackground)
         return layout
     }
     
     private func createSectionForGames() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.2))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 0)
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.3))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         
         let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
         
-        let sectionBackground = NSCollectionLayoutDecorationItem.background(elementKind: ViewController.sectionBackgroundDecorationElementKind)
+        let sectionBackground = NSCollectionLayoutDecorationItem.background(elementKind: ViewController.sectionBackground)
+        sectionBackground.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
         section.decorationItems = [sectionBackground]
-        
-
-        
-        return section
-    }
     
-    private func createSectionForTicTacToe() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.2))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 0)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.3))
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-        let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
-        
         return section
     }
     
@@ -121,7 +105,10 @@ extension ViewController {
         
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
-        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
+
+        let sectionBackground = NSCollectionLayoutDecorationItem.background(elementKind: ViewController.sectionBackground)
+        sectionBackground.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
+        section.decorationItems = [sectionBackground]
         
         return section
     }
@@ -132,7 +119,6 @@ extension ViewController {
 }
 
 extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         3
     }
