@@ -2,6 +2,8 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    static let sectionBackgroundDecorationElementKind = "section-background-element-kind"
+
     enum Section: Int, CaseIterable {
         case statistics, rockPaperScissors, ticTacToe
     }
@@ -9,7 +11,7 @@ class ViewController: UIViewController {
     var buttonUpdate: UIButton = {
         let button = UIButton()
         button.setTitle("ОБНОВИТЬ", for: .normal)
-        button.backgroundColor = .systemGray5
+        button.backgroundColor = .white
         button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 15
         button.addTarget(self, action: #selector(updateDataSource(_:)), for: .touchUpInside)
@@ -30,7 +32,7 @@ extension ViewController {
     func setupCollectionView() {
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .systemGray6
         collectionView.register(RockPaperScissorsCell.self, forCellWithReuseIdentifier: RockPaperScissorsCell.reuseId)
         collectionView.register(TicTacToeCell.self, forCellWithReuseIdentifier: TicTacToeCell.reuseId)
         collectionView.register(StatisticsTicTacToeCell.self, forCellWithReuseIdentifier: StatisticsTicTacToeCell.reuseId)
@@ -62,9 +64,9 @@ extension ViewController {
             let section = Section(rawValue: sectionIndex)!
             switch section {
             case .rockPaperScissors:
-                return self.createSectionForRPS()
+                return self.createSectionForGames()
             case .ticTacToe:
-                return self.createSectionForTicTacToe()
+                return self.createSectionForGames()
             case .statistics:
                 return self.createSectionForStatistics()
             }
@@ -74,11 +76,13 @@ extension ViewController {
         let config = UICollectionViewCompositionalLayoutConfiguration()
         config.interSectionSpacing = 25
         layout.configuration = config
-        
+        layout.register(
+            SectionBackgroundDecorationView.self,
+            forDecorationViewOfKind: ViewController.sectionBackgroundDecorationElementKind)
         return layout
     }
     
-    private func createSectionForRPS() -> NSCollectionLayoutSection {
+    private func createSectionForGames() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.2))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 0)
@@ -87,6 +91,11 @@ extension ViewController {
         
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
+        
+        let sectionBackground = NSCollectionLayoutDecorationItem.background(elementKind: ViewController.sectionBackgroundDecorationElementKind)
+        section.decorationItems = [sectionBackground]
+        
+
         
         return section
     }
