@@ -21,20 +21,21 @@ class TabBarViewController: UITabBarController {
         navigationController.tabBarItem = UITabBarItem.init(title: "RockPaperScissors", image: UIImage(systemName: "scissors"), tag: 1)
         
         let ticTacToeViewController = TicTacToeViewController()
-        ticTacToeViewController.tabBarItem = UITabBarItem.init(title: "TicTacToe", image: UIImage(systemName: "multiply.circle"), tag: 2)
+        ticTacToeViewController.tabBarItem = UITabBarItem.init(title: "TicTacToe", image: UIImage(systemName: "multiply.circle"), tag: 1)
         ticTacToeViewController.tabBarItem.selectedImage = UIImage(systemName: "multiply.circle.fill")
         
         let calculatorViewControleer = CalculatorViewController()
-        calculatorViewControleer.tabBarItem = UITabBarItem.init(title: "Calculator", image: UIImage(systemName: "x.squareroot"), tag: 3)
+        calculatorViewControleer.tabBarItem = UITabBarItem.init(title: "Calculator", image: UIImage(systemName: "x.squareroot"), tag: 1)
         
         let historyViewController = ViewController()
-        historyViewController.tabBarItem = UITabBarItem(title: "History", image: UIImage(systemName: "book"), tag: 4)
+        let secondNavigationController = UINavigationController(rootViewController: historyViewController)
+        historyViewController.tabBarItem = UITabBarItem(title: "History", image: UIImage(systemName: "book"), tag: 1)
         historyViewController.tabBarItem.selectedImage = UIImage(systemName: "book.fill")
         
         
         tabBar.barTintColor = .gray
         tabBar.tintColor = .darkGray
                         
-        setViewControllers([navigationController, cubeViewController, ticTacToeViewController, calculatorViewControleer, historyViewController], animated: false)
+        setViewControllers([navigationController, cubeViewController, ticTacToeViewController, calculatorViewControleer, secondNavigationController], animated: false)
     }
 }

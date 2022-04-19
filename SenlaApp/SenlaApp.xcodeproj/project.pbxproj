@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		632248B52805EA5E00084B45 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632248B42805EA5E00084B45 /* TabBarViewController.swift */; };
-		632248B82805EC2000084B45 /* StatisticsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632248B72805EC2000084B45 /* StatisticsCell.swift */; };
+		632248B82805EC2000084B45 /* StatisticsTicTacToeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632248B72805EC2000084B45 /* StatisticsTicTacToeCell.swift */; };
 		6327E96427FB5898009F6AA1 /* CalculatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6327E96327FB5898009F6AA1 /* CalculatorViewController.swift */; };
 		6339FD4427F4BABA0019CBEC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6339FD4327F4BABA0019CBEC /* AppDelegate.swift */; };
 		6339FD4D27F4BABA0019CBEC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6339FD4C27F4BABA0019CBEC /* Assets.xcassets */; };
@@ -22,11 +22,12 @@
 		63CCC8A228088CFB005351CE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CCC8A128088CFB005351CE /* ViewController.swift */; };
 		63DCF4DF27FA09FD007090A4 /* TicTacToeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DCF4DE27FA09FD007090A4 /* TicTacToeViewController.swift */; };
 		63E0C5D4280715AF00DEBC1B /* InfoAboutGames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E0C5D3280715AF00DEBC1B /* InfoAboutGames.swift */; };
+		63E193EB280EA438009FE484 /* StatisticsRockPaperScissorsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E193EA280EA438009FE484 /* StatisticsRockPaperScissorsCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		632248B42805EA5E00084B45 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
-		632248B72805EC2000084B45 /* StatisticsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsCell.swift; sourceTree = "<group>"; };
+		632248B72805EC2000084B45 /* StatisticsTicTacToeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsTicTacToeCell.swift; sourceTree = "<group>"; };
 		6327E96327FB5898009F6AA1 /* CalculatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorViewController.swift; sourceTree = "<group>"; };
 		6339FD4027F4BABA0019CBEC /* SenlaApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SenlaApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6339FD4327F4BABA0019CBEC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -42,6 +43,7 @@
 		63CCC8A128088CFB005351CE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		63DCF4DE27FA09FD007090A4 /* TicTacToeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicTacToeViewController.swift; sourceTree = "<group>"; };
 		63E0C5D3280715AF00DEBC1B /* InfoAboutGames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoAboutGames.swift; sourceTree = "<group>"; };
+		63E193EA280EA438009FE484 /* StatisticsRockPaperScissorsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsRockPaperScissorsCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,9 +98,10 @@
 		63CCC8A328089438005351CE /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				632248B72805EC2000084B45 /* StatisticsCell.swift */,
+				632248B72805EC2000084B45 /* StatisticsTicTacToeCell.swift */,
 				63CCC89D28087FA0005351CE /* RockPaperScissorsCell.swift */,
 				63CCC89B28087F8D005351CE /* TicTacToeCell.swift */,
+				63E193EA280EA438009FE484 /* StatisticsRockPaperScissorsCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -211,12 +214,13 @@
 				635755E4280BFE1700B1A7FF /* SectionBackgroundDecorationView.swift in Sources */,
 				63DCF4DF27FA09FD007090A4 /* TicTacToeViewController.swift in Sources */,
 				6339FD5C27F4BC2A0019CBEC /* CubeViewController.swift in Sources */,
+				63E193EB280EA438009FE484 /* StatisticsRockPaperScissorsCell.swift in Sources */,
 				63CCC8A228088CFB005351CE /* ViewController.swift in Sources */,
 				632248B52805EA5E00084B45 /* TabBarViewController.swift in Sources */,
 				63E0C5D4280715AF00DEBC1B /* InfoAboutGames.swift in Sources */,
 				6327E96427FB5898009F6AA1 /* CalculatorViewController.swift in Sources */,
 				6339FD5A27F4BC040019CBEC /* SettingsViewController.swift in Sources */,
-				632248B82805EC2000084B45 /* StatisticsCell.swift in Sources */,
+				632248B82805EC2000084B45 /* StatisticsTicTacToeCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

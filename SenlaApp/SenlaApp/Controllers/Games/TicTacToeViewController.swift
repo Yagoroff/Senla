@@ -1,6 +1,6 @@
 import UIKit
 
-class TicTacToeViewController: UIViewController {
+final class TicTacToeViewController: UIViewController {
             
     lazy var stackViewFirstLine: UIStackView = {
         let stack = UIStackView()
@@ -233,10 +233,9 @@ extension TicTacToeViewController {
             }
             if findWinVersionPlayer {
                 textResult.text = "PLAYER WIN"
-                countOfGamesInTicTacToe += 1
-                countOfWinInTicTacToe += 1
-                print(countOfWinInTicTacToe)
-                historyOfTicTacToe.append(TicTacToe(result: textResult.text))
+                InfoAboutGames.shared.countOfGamesInTicTacToe += 1
+                InfoAboutGames.shared.countOfWinInTicTacToe += 1
+                InfoAboutGames.shared.historyOfTicTacToe.append(TicTacToe(result: textResult.text))
                 textResult.isHidden = false
                 buttonRetry.isHidden = false
                 for buttons in arrayForCoordinates {
@@ -262,8 +261,8 @@ extension TicTacToeViewController {
             }
             if findWinVersionComputer {
                 textResult.text = "COMPUTER WIN"
-                countOfGamesInTicTacToe += 1
-                historyOfTicTacToe.append(TicTacToe(result: textResult.text))
+                InfoAboutGames.shared.countOfGamesInTicTacToe += 1
+                InfoAboutGames.shared.historyOfTicTacToe.append(TicTacToe(result: textResult.text))
                 textResult.isHidden = false
                 buttonRetry.isHidden = false
                 for buttons in arrayForCoordinates {
@@ -278,8 +277,8 @@ extension TicTacToeViewController {
     
     func isDraw() {
         textResult.text = "DRAW"
-        countOfGamesInTicTacToe += 1
-        historyOfTicTacToe.append(TicTacToe(result: textResult.text))
+        InfoAboutGames.shared.countOfGamesInTicTacToe += 1
+        InfoAboutGames.shared.historyOfTicTacToe.append(TicTacToe(result: textResult.text))
         textResult.isHidden = false
         buttonRetry.isHidden = false
     }

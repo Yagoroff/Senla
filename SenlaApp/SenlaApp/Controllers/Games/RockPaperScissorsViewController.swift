@@ -2,7 +2,7 @@ import UIKit
 
 class RockPaperScissorsViewController: UIViewController {    
     
-    let settingViewController = SettingsViewController()
+    private var settingViewController: SettingsViewController! = nil
     
     lazy var randChoice = Int.random(in: 0...2)
     
@@ -178,6 +178,11 @@ private extension RockPaperScissorsViewController {
     }
     
     func switchLanguage() -> Array<String> {
+        guard settingViewController != nil else {
+            buttonRetry.setTitle("ПОВТОР", for: .normal)
+            return ["НИЧЬЯ", "ПОБЕДА", "ПРОИГРЫШ"]
+        }
+        
         guard settingViewController.currentLanguage == "english" else {
             buttonRetry.setTitle("ПОВТОР", for: .normal)
             return ["НИЧЬЯ", "ПОБЕДА", "ПРОИГРЫШ"]
@@ -188,6 +193,7 @@ private extension RockPaperScissorsViewController {
     }
 
     @objc private func buttonActionSettings(_ sender: Any) {
+        settingViewController = SettingsViewController()
         navigationController?.pushViewController(settingViewController, animated: true)
     }
         
@@ -205,14 +211,19 @@ private extension RockPaperScissorsViewController {
     
     @objc private func buttonActionPlay(_ sender: UIButton!) {
         let language = switchLanguage()
-        countOfGamesInRockPaperScissors += 1
+        InfoAboutGames.shared.countOfGamesInRockPaperScissors += 1
         
         if sender == buttonRock {
-            countOfPickRock += 1
-            if settingViewController.statusDrawMode {
-                randChoice = Int.random(in: 0...2)
+            InfoAboutGames.shared.countOfPickRock += 1
+            
+            if settingViewController != nil {
+                if settingViewController.statusDrawMode {
+                    randChoice = Int.random(in: 0...2)
+                } else {
+                    randChoice = Int.random(in: 1...2)
+                }
             } else {
-                randChoice = Int.random(in: 1...2)
+                randChoice = Int.random(in: 0...2)
             }
             
             switch randChoice {
@@ -221,20 +232,20 @@ private extension RockPaperScissorsViewController {
                 imageRockRandom.isHidden = false
                 imagePaperRandom.isHidden = true
                 imageScissorsRandom.isHidden = true
-                historyOfRockPaperScissors.append(RockPaperScissors(imagePlayer: UIImage(named: "rock")!, imageComputer: UIImage(named: "rock")!, result: textResult.text))
+                InfoAboutGames.shared.historyOfRockPaperScissors.append(RockPaperScissors(imagePlayer: UIImage(named: "rock")!, imageComputer: UIImage(named: "rock")!, result: textResult.text))
             case 1:
                 textResult.text = language[2]
                 imageRockRandom.isHidden = true
                 imagePaperRandom.isHidden = false
                 imageScissorsRandom.isHidden = true
-                historyOfRockPaperScissors.append(RockPaperScissors(imagePlayer: UIImage(named: "rock")!, imageComputer: UIImage(named: "paper")!, result: textResult.text))
+                InfoAboutGames.shared.historyOfRockPaperScissors.append(RockPaperScissors(imagePlayer: UIImage(named: "rock")!, imageComputer: UIImage(named: "paper")!, result: textResult.text))
             case 2:
-                countOfWinByRock += 1
+                InfoAboutGames.shared.countOfWinByRock += 1
                 textResult.text = language[1]
                 imageRockRandom.isHidden = true
                 imagePaperRandom.isHidden = true
                 imageScissorsRandom.isHidden = false
-                historyOfRockPaperScissors.append(RockPaperScissors(imagePlayer: UIImage(named: "rock")!, imageComputer: UIImage(named: "scissors")!, result: textResult.text))
+                InfoAboutGames.shared.historyOfRockPaperScissors.append(RockPaperScissors(imagePlayer: UIImage(named: "rock")!, imageComputer: UIImage(named: "scissors")!, result: textResult.text))
             default:
                 break
             }
@@ -246,14 +257,18 @@ private extension RockPaperScissorsViewController {
             buttonRetry.isHidden = false
                     
         } else if sender == buttonPaper {
-            countOfPickPaper += 1
+            InfoAboutGames.shared.countOfPickPaper += 1
 
             let arrayForModeWithoutDraw: Array<Int> = [0, 2]
             
-            if settingViewController.statusDrawMode {
-                randChoice = Int.random(in: 0...2)
+            if settingViewController != nil {
+                if settingViewController.statusDrawMode {
+                    randChoice = Int.random(in: 0...2)
+                } else {
+                    randChoice = arrayForModeWithoutDraw.randomElement()!
+                }
             } else {
-                randChoice = arrayForModeWithoutDraw.randomElement()!
+                randChoice = Int.random(in: 0...2)
             }
             
             switch randChoice {
@@ -262,20 +277,20 @@ private extension RockPaperScissorsViewController {
                 imageRockRandom.isHidden = true
                 imagePaperRandom.isHidden = false
                 imageScissorsRandom.isHidden = true
-                historyOfRockPaperScissors.append(RockPaperScissors(imagePlayer: UIImage(named: "paper")!, imageComputer: UIImage(named: "paper")!, result: textResult.text))
+                InfoAboutGames.shared.historyOfRockPaperScissors.append(RockPaperScissors(imagePlayer: UIImage(named: "paper")!, imageComputer: UIImage(named: "paper")!, result: textResult.text))
             case 2:
                 textResult.text = language[2]
                 imageRockRandom.isHidden = true
                 imagePaperRandom.isHidden = true
                 imageScissorsRandom.isHidden = false
-                historyOfRockPaperScissors.append(RockPaperScissors(imagePlayer: UIImage(named: "paper")!, imageComputer: UIImage(named: "scissors")!, result: textResult.text))
+                InfoAboutGames.shared.historyOfRockPaperScissors.append(RockPaperScissors(imagePlayer: UIImage(named: "paper")!, imageComputer: UIImage(named: "scissors")!, result: textResult.text))
             case 0 :
-                countOfWinByPaper += 1
+                InfoAboutGames.shared.countOfWinByPaper += 1
                 textResult.text = language[1]
                 imageRockRandom.isHidden = false
                 imagePaperRandom.isHidden = true
                 imageScissorsRandom.isHidden = true
-                historyOfRockPaperScissors.append(RockPaperScissors(imagePlayer: UIImage(named: "paper")!, imageComputer: UIImage(named: "rock")!, result: textResult.text))
+                InfoAboutGames.shared.historyOfRockPaperScissors.append(RockPaperScissors(imagePlayer: UIImage(named: "paper")!, imageComputer: UIImage(named: "rock")!, result: textResult.text))
             default:
                 break
             }
@@ -287,12 +302,16 @@ private extension RockPaperScissorsViewController {
             buttonRetry.isHidden = false
                         
         } else if sender == buttonScissors {
-            countOfPickScissors += 1
+            InfoAboutGames.shared.countOfPickScissors += 1
 
-            if settingViewController.statusDrawMode {
-                randChoice = Int.random(in: 0...2)
+            if settingViewController != nil {
+                if settingViewController.statusDrawMode {
+                    randChoice = Int.random(in: 0...2)
+                } else {
+                    randChoice = Int.random(in: 0...1)
+                }
             } else {
-                randChoice = Int.random(in: 0...1)
+                randChoice = Int.random(in: 0...2)
             }
 
             switch randChoice {
@@ -301,20 +320,20 @@ private extension RockPaperScissorsViewController {
                 imageRockRandom.isHidden = true
                 imagePaperRandom.isHidden = true
                 imageScissorsRandom.isHidden = false
-                historyOfRockPaperScissors.append(RockPaperScissors(imagePlayer: UIImage(named: "scissors")!, imageComputer: UIImage(named: "scissors")!, result: textResult.text))
+                InfoAboutGames.shared.historyOfRockPaperScissors.append(RockPaperScissors(imagePlayer: UIImage(named: "scissors")!, imageComputer: UIImage(named: "scissors")!, result: textResult.text))
             case 0:
                 textResult.text = language[2]
                 imageRockRandom.isHidden = false
                 imagePaperRandom.isHidden = true
                 imageScissorsRandom.isHidden = true
-                historyOfRockPaperScissors.append(RockPaperScissors(imagePlayer: UIImage(named: "scissors")!, imageComputer: UIImage(named: "rock")!, result: textResult.text))
+                InfoAboutGames.shared.historyOfRockPaperScissors.append(RockPaperScissors(imagePlayer: UIImage(named: "scissors")!, imageComputer: UIImage(named: "rock")!, result: textResult.text))
             case 1:
-                countOfWinByScissors += 1
+                InfoAboutGames.shared.countOfWinByScissors += 1
                 textResult.text = language[1]
                 imageRockRandom.isHidden = true
                 imagePaperRandom.isHidden = false
                 imageScissorsRandom.isHidden = true
-                historyOfRockPaperScissors.append(RockPaperScissors(imagePlayer: UIImage(named: "scissors")!, imageComputer: UIImage(named: "paper")!, result: textResult.text))
+                InfoAboutGames.shared.historyOfRockPaperScissors.append(RockPaperScissors(imagePlayer: UIImage(named: "scissors")!, imageComputer: UIImage(named: "paper")!, result: textResult.text))
             default:
                 break
             }

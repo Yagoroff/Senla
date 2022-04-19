@@ -1,7 +1,7 @@
 import UIKit
 
-class SettingsViewController: UIViewController {
-    public var currentLanguage: String = "english"
+final class SettingsViewController: UIViewController {
+    public var currentLanguage: String = "русский"
     
     public var statusDrawMode: Bool = true
     
@@ -31,7 +31,7 @@ class SettingsViewController: UIViewController {
     
     lazy var buttonWithDraw: UIButton = {
         let buttonForReturn = UIButton()
-        buttonForReturn.setTitle("Mode: with Draw", for: .normal)
+        buttonForReturn.setTitle("Режим: с ничьей", for: .normal)
         buttonForReturn.setTitleColor(.black, for: .normal)
         buttonForReturn.backgroundColor = .systemGray5
         buttonForReturn.layer.cornerRadius = 15
@@ -43,7 +43,7 @@ class SettingsViewController: UIViewController {
     
     lazy var buttonWithoutDraw: UIButton = {
         let buttonForReturn = UIButton()
-        buttonForReturn.setTitle("Mode: without Draw", for: .normal)
+        buttonForReturn.setTitle("Режим: без ничьи", for: .normal)
         buttonForReturn.setTitleColor(.black, for: .normal)
         buttonForReturn.backgroundColor = .systemGray5
         buttonForReturn.layer.cornerRadius = 15
@@ -70,7 +70,7 @@ extension SettingsViewController {
         view.addSubview(buttonEnglish)
         view.addSubview(buttonWithDraw)
         view.addSubview(buttonWithoutDraw)
-        buttonEnglish.isHidden = true
+        buttonRussian.isHidden = true
         buttonWithoutDraw.isHidden = true
     }
     

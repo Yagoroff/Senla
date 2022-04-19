@@ -1,6 +1,6 @@
 import UIKit
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
     
     static let sectionBackground = "background"
 
@@ -11,8 +11,7 @@ class ViewController: UIViewController {
     var buttonUpdate: UIButton = {
         let button = UIButton()
         button.setTitle("ОБНОВИТЬ", for: .normal)
-        button.backgroundColor = .white
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.systemBlue, for: .normal)
         button.layer.cornerRadius = 15
         button.addTarget(self, action: #selector(updateDataSource(_:)), for: .touchUpInside)
         return button
@@ -22,6 +21,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .systemGray6
         setupCollectionView()
         setupView()
     }
@@ -48,14 +48,13 @@ extension ViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         buttonUpdate.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
+            buttonUpdate.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -15),
+            buttonUpdate.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
-            buttonUpdate.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            buttonUpdate.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
-            buttonUpdate.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -15)
+            collectionView.topAnchor.constraint(equalTo: buttonUpdate.bottomAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
@@ -119,6 +118,24 @@ extension ViewController {
 }
 
 extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if type(of: cell) == TicTacToeCell.self {
+            cell.layer.opacity = 0
+            cell.transform.tx = -300
+            UIView.animate(withDuration: 1.2, delay: 0, options: .curveEaseInOut, animations: {
+                cell.layer.opacity = 1
+                cell.transform.tx = 0
+            })
+        } else if type(of: cell) == RockPaperScissorsCell.self {
+            cell.layer.opacity = 0
+            cell.transform.tx = 300
+            UIView.animate(withDuration: 1.2, delay: 0, options: .curveEaseInOut, animations: {
+                cell.layer.opacity = 1
+                cell.transform.tx = 0
+            })
+        }
+    }
+
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         3
     }
@@ -127,9 +144,9 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
         let section = Section(rawValue: section)
         switch section {
         case .rockPaperScissors:
-            return historyOfRockPaperScissors.count
+            return InfoAboutGames.shared.historyOfRockPaperScissors.count
         case .ticTacToe:
-            return historyOfTicTacToe.count
+            return InfoAboutGames.shared.historyOfTicTacToe.count
         case .statistics:
             return 2
         case .none:
@@ -143,23 +160,23 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
         switch section {
         case .rockPaperScissors:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RockPaperScissorsCell.reuseId, for: indexPath) as? RockPaperScissorsCell else { fatalError() }
-            cell.configure(result: historyOfRockPaperScissors[indexPath.row].result, playerImage: historyOfRockPaperScissors[indexPath.row].imagePlayer, computerImage: historyOfRockPaperScissors[indexPath.row].imageComputer)
+            cell.configure(result: InfoAboutGames.shared.historyOfRockPaperScissors[indexPath.row].result, playerImage: InfoAboutGames.shared.historyOfRockPaperScissors[indexPath.row].imagePlayer, computerImage: InfoAboutGames.shared.historyOfRockPaperScissors[indexPath.row].imageComputer)
             
             return cell
         case .ticTacToe:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TicTacToeCell.reuseId, for: indexPath) as? TicTacToeCell else { fatalError() }
-            cell.configure(result: historyOfTicTacToe[indexPath.row].result)
+            cell.configure(result: InfoAboutGames.shared.historyOfTicTacToe[indexPath.row].result)
             
             return cell
         case .statistics:
             if indexPath.row == 0 {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StatisticsTicTacToeCell.reuseId, for: indexPath) as? StatisticsTicTacToeCell else { fatalError() }
 
-                guard countOfGamesInTicTacToe != 0 else {
+                guard InfoAboutGames.shared.countOfGamesInTicTacToe != 0 else {
                     cell.configure(name: "Крестики-Нолики", percent: "Вы еще не играли в Крестики-Нолики")
                     return cell
                 }
-                let percent = String(floor((Double(countOfWinInTicTacToe) / Double(countOfGamesInTicTacToe) * 100))) + "% побед"
+                let percent = String(floor((Double(InfoAboutGames.shared.countOfWinInTicTacToe) / Double(InfoAboutGames.shared.countOfGamesInTicTacToe) * 100))) + "% побед"
                 
                 cell.configure(name: "Крестики-Нолики", percent: percent)
                 
@@ -167,14 +184,14 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
             } else {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StatisticsRockPaperScissorsCell.reuseId, for: indexPath) as? StatisticsRockPaperScissorsCell else { fatalError() }
                 
-                guard countOfGamesInRockPaperScissors != 0 else {
+                guard InfoAboutGames.shared.countOfGamesInRockPaperScissors != 0 else {
                     cell.configure(name: "Камень-Ножницы-Бумага", percentForRock: "Не было игр", percentForPaper: "Не было игр", pecentForScissors: "Не было игр")
                     return cell
                 }
                 
-                var percentWinWithRock = String(floor((Double(countOfWinByRock) / Double(countOfPickRock) * 100))) + "% побед"
-                var percentWinWithScissors = String(floor((Double(countOfWinByScissors) / Double(countOfPickScissors) * 100))) + "% побед"
-                var percentWinWithPaper = String(floor((Double(countOfWinByPaper) / Double(countOfPickPaper) * 100))) + "% побед"
+                var percentWinWithRock = String(floor((Double(InfoAboutGames.shared.countOfWinByRock) / Double(InfoAboutGames.shared.countOfPickRock) * 100))) + "% побед"
+                var percentWinWithScissors = String(floor((Double(InfoAboutGames.shared.countOfWinByScissors) / Double(InfoAboutGames.shared.countOfPickScissors) * 100))) + "% побед"
+                var percentWinWithPaper = String(floor((Double(InfoAboutGames.shared.countOfWinByPaper) / Double(InfoAboutGames.shared.countOfPickPaper) * 100))) + "% побед"
                 
                 if percentWinWithRock == "nan% побед" {
                     percentWinWithRock = "Не было игр"

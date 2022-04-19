@@ -1,6 +1,6 @@
 import UIKit
 
-class CubeViewController: UIViewController {
+final class CubeViewController: UIViewController {
     
     lazy var titleGame: UITextView = {
         let textView = UITextView()

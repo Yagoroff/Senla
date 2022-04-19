@@ -1,101 +1,45 @@
 import Foundation
 import UIKit
 
-final class StatisticsTicTacToeCell: UICollectionViewCell {
-    
-    static var reuseId: String = "StatisticsCell"
-    
-    var winningPercentage: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 17, weight: .thin)
-        return label
-    }()
-    
-    var playerImage: UIImageView = {
-        let image = UIImageView(image: UIImage(systemName: "multiply", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30)))
-        image.tintColor = .black
-        return image
-    }()
-    
-    var nameOfGame: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
-        label.textAlignment = .center
-        return label
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupCell()
-    }
-    
-    private func setupCell() {
-        
-        [nameOfGame, winningPercentage, playerImage].forEach({
-            contentView.addSubview($0)
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        })
-        
-        NSLayoutConstraint.activate([
-            nameOfGame.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            nameOfGame.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
-            
-            playerImage.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            playerImage.topAnchor.constraint(equalTo: nameOfGame.bottomAnchor, constant: 20),
-            
-            winningPercentage.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            winningPercentage.topAnchor.constraint(equalTo: playerImage.bottomAnchor, constant: 20)
-        ])
-    }
-
-    func configure(name: String, percent: String) {
-        nameOfGame.text = name
-        winningPercentage.text = percent
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
 
 final class StatisticsRockPaperScissorsCell: UICollectionViewCell {
     
-    static var reuseId: String = "StatisticsRockPaperScissorsCell"
+    static let reuseId: String = "StatisticsRockPaperScissorsCell"
     
-    var winByRock: UILabel = {
+    private let winByRock: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17, weight: .thin)
         return label
     }()
     
-    var winByPaper: UILabel = {
+    private let winByPaper: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17, weight: .thin)
         return label
     }()
     
-    var winByScissors: UILabel = {
+    private let winByScissors: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17, weight: .thin)
         return label
     }()
     
-    var imageRock: UIImageView = {
+    private let imageRock: UIImageView = {
         let image = UIImageView(image: UIImage(named: "rock"))
         return image
     }()
     
-    var imagePaper: UIImageView = {
+    private let imagePaper: UIImageView = {
         let image = UIImageView(image: UIImage(named: "paper"))
         return image
     }()
     
-    var imageScissors: UIImageView = {
+    private let imageScissors: UIImageView = {
         let image = UIImageView(image: UIImage(named: "scissors"))
         return image
     }()
     
-    var nameOfGame: UILabel = {
+    private let nameOfGame: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
         label.textAlignment = .center
@@ -108,12 +52,22 @@ final class StatisticsRockPaperScissorsCell: UICollectionViewCell {
     }
     
     private func setupCell() {
+        contentView.addSubview(nameOfGame)
+        contentView.addSubview(imageRock)
+        contentView.addSubview(imagePaper)
+        contentView.addSubview(imageScissors)
+        contentView.addSubview(winByRock)
+        contentView.addSubview(winByPaper)
+        contentView.addSubview(winByScissors)
         
-        [nameOfGame, imageRock, imagePaper, imageScissors, winByRock, winByPaper, winByScissors].forEach({
-            contentView.addSubview($0)
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        })
-        
+        nameOfGame.translatesAutoresizingMaskIntoConstraints = false
+        imageRock.translatesAutoresizingMaskIntoConstraints = false
+        imagePaper.translatesAutoresizingMaskIntoConstraints = false
+        imageScissors.translatesAutoresizingMaskIntoConstraints = false
+        winByRock.translatesAutoresizingMaskIntoConstraints = false
+        winByPaper.translatesAutoresizingMaskIntoConstraints = false
+        winByScissors.translatesAutoresizingMaskIntoConstraints = false
+
         NSLayoutConstraint.activate([
             nameOfGame.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             nameOfGame.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),

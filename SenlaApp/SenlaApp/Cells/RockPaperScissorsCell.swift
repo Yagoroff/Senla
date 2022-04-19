@@ -5,40 +5,31 @@ import UIKit
 
 final class RockPaperScissorsCell: UICollectionViewCell {
     
-    static var reuseId: String = "RockPaperScissorsCell"
+    static let reuseId: String = "RockPaperScissorsCell"
     
-    let resultLabel: UILabel = {
+    private let resultLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17, weight: .thin)
         return label
     }()
     
-    var playerImage: UIImageView = {
-        let image = UIImageView()
-        return image
-    }()
+    private let playerImage = UIImageView()
     
-    var computerImage: UIImageView = {
-        let image = UIImageView()
-        return image
-    }()
+    private let computerImage = UIImageView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupCell()
-        UIView.animate(withDuration: 1.2, delay: 0.6, options: .curveEaseInOut, animations: { [self] in
-            self.contentView.layer.opacity = 1
-            self.contentView.transform.tx = 300
-        })
     }
     
     private func setupCell() {
-        contentView.layer.opacity = 0
-        contentView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: -300).isActive = true
-        [resultLabel, playerImage, computerImage].forEach {
-            contentView.addSubview($0)
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
+        contentView.addSubview(resultLabel)
+        contentView.addSubview(playerImage)
+        contentView.addSubview(computerImage)
+        
+        resultLabel.translatesAutoresizingMaskIntoConstraints = false
+        playerImage.translatesAutoresizingMaskIntoConstraints = false
+        computerImage.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             resultLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
