@@ -1,18 +1,22 @@
 import UIKit
 
-class ViewController: UIViewController {
-    private let button: UIButton = {
+final class ViewController: UIViewController {
+    private lazy var button: UIButton = {
         let button = UIButton()
         button.setTitle("Анимация", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .systemGray6
-        button.addTarget(self, action: #selector(startAnimation), for: .touchUpInside)
+        button.addAction(UIAction() { [weak self] _ in
+            self?.startAnimation()
+        }, for: .touchUpInside)
         return button
     }()
     
-    private let buttonRocket: UIButton = {
+    private lazy var buttonRocket: UIButton = {
         let button = UIButton()
-        button.addTarget(self, action: #selector(startAnimation), for: .touchUpInside)
+        button.addAction(UIAction() { [weak self] _ in
+            self?.startAnimation()
+        }, for: .touchUpInside)
         return button
     }()
     
@@ -48,6 +52,21 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        rocket.path = setupPathForRocket().cgPath
+        window.path = setupPathForWindow().cgPath
+        land.path = setupPathForLand().cgPath
+    }
+}
+
+private extension ViewController {
+    private func startAnimation() {
+//        button.isEnabled = false
+//        buttonRocket.isEnabled = false
+        addAnimation(to: rocket)
+        addAnimation(to: window)
+    }
+    
+    private func setupPathForRocket()  -> UIBezierPath {
         let center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 1.5)
         
         let pathForRocket = UIBezierPath()
@@ -68,23 +87,21 @@ class ViewController: UIViewController {
         pathForRocket.addLine(to: CGPoint(x: center.x, y: center.y + 70))
         pathForRocket.addLine(to: CGPoint(x: center.x + 20, y: center.y + 40))
         pathForRocket.addLine(to: CGPoint(x: center.x + 20, y: center.y + 20))
-        
-        let pathForWindow = UIBezierPath(arcCenter: CGPoint(x: center.x, y: center.y - 120), radius: 15, startAngle: 10, endAngle: 0, clockwise: false)
-        
-        let pathForLand = UIBezierPath(arcCenter: CGPoint(x: center.x, y: center.y + 970), radius: 1000, startAngle: 10, endAngle: 0, clockwise: false)
-        
-        rocket.path = pathForRocket.cgPath
-        window.path = pathForWindow.cgPath
-        land.path = pathForLand.cgPath
+        return pathForRocket
     }
-}
+    
+    private func setupPathForWindow() -> UIBezierPath {
+        let center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 1.5)
 
-extension ViewController {
-    @objc func startAnimation() {
-//        button.isEnabled = false
-//        buttonRocket.isEnabled = false
-        addAnimation(to: rocket)
-        addAnimation(to: window)
+        let pathForWindow = UIBezierPath(arcCenter: CGPoint(x: center.x, y: center.y - 120), radius: 15, startAngle: 10, endAngle: 0, clockwise: false)
+        return pathForWindow
+    }
+    
+    private func setupPathForLand()  -> UIBezierPath {
+        let center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 1.5)
+
+        let pathForLand = UIBezierPath(arcCenter: CGPoint(x: center.x, y: center.y + 970), radius: 1000, startAngle: 10, endAngle: 0, clockwise: false)
+        return pathForLand
     }
     
     private func setupButtons() {
